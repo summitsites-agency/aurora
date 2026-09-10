@@ -1,0 +1,21 @@
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem var(--gutter);
+  z-index: 60;
+  mix-blend-mode: normal;
+  transition: padding var(--dur-base) var(--ease-glide);
+}
+.nav[data-shrunk='true'] { padding-block: 0.7rem; background: var(--paper); border-bottom: 1px solid var(--line); }
+
+.nav__mark {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: var(--track-wordmark);
+  text-transform: uppercase;
+}
+.nav__links { display: flex; gap: 1.5rem; }
+@media (max-width: 640px) { .nav__links { gap: 0.9rem; } }
