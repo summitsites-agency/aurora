@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+
+# Raw client assets. The web-ready derivatives in public/ are committed so the
+# repo is clone-and-run; re-running `npm run prepare-media` needs these back.
+/media-src/
+/refs/
