@@ -41,6 +41,16 @@ button {
   outline-offset: 3px;
 }
 
+/* PageTransition moves focus to the page <h1> on every route change so screen
+   readers announce the new page. Chrome treats that programmatic focus as
+   :focus-visible and draws a ring around the heading, which reads as a stray
+   black box. Suppress it: tabindex="-1" keeps these elements out of the tab
+   order, so no keyboard user can land here by navigating and lose an indicator. */
+[tabindex='-1']:focus,
+[tabindex='-1']:focus-visible {
+  outline: none;
+}
+
 .u-label {
   font-size: 0.72rem;
   font-weight: 500;
