@@ -3,7 +3,6 @@ dist/
 *.local
 .DS_Store
 
-# Raw client assets. The web-ready derivatives in public/ are committed so the
-# repo is clone-and-run; re-running `npm run prepare-media` needs these back.
-/media-src/
-/refs/
+# media-src/ and refs/ ARE committed. The client's originals are
+# irreplaceable and must not live only on one machine, and committing them
+# keeps `npm run prepare-media` reproducible from a fresh clone.
