@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { existsSync } from 'node:fs';
-import { products } from '../src/data/products.js';
+import { products, groundSoftFor, GROUND_MIX } from '../src/data/products.js';
 import { SIZES } from '../src/data/sizes.js';
 
 const HEX = /^#[0-9a-f]{6}$/;
@@ -21,6 +21,22 @@ describe('product data', () => {
       expect(p.hexLight, p.slug).toMatch(HEX);
       expect(p.groundSoft, p.slug).toMatch(HEX);
     }
+  });
+
+  it('derives groundSoft from hex rather than hand-authored literals', () => {
+    for (const p of products) {
+      expect(p.groundSoft, p.slug).toBe(groundSoftFor(p.hex));
+    }
+  });
+
+  it('mixes the ground at the documented ratio over paper', () => {
+    // Guards the ratio itself. Salt is the palest colourway, so its ground must
+    // stay distinguishable from bare paper; Eclipse is the darkest and must not
+    // tint so hard that the ground stops reading as paper.
+    expect(GROUND_MIX).toBe(0.12);
+    expect(groundSoftFor('#000000')).toBe('#d2d1cb'); // darkest possible ground
+    expect(groundSoftFor('#ffffff')).toBe('#f1efea'); // lifts slightly above paper
+    expect(groundSoftFor('#efede7')).toBe('#efede7'); // paper mixed with paper is paper
   });
 
   it('prices every colourway identically in CAD cents', () => {
