@@ -1,0 +1,51 @@
+/* AURORA design tokens.
+   Neutrals sampled from the client's hero photograph; ink and paper taken from
+   the brand's own Eclipse and Salt colourways. No invented accent — the eight
+   colourways ARE the accent system. */
+
+@property --ground      { syntax: '<color>'; inherits: true; initial-value: #EFEDE7; }
+@property --ground-soft { syntax: '<color>'; inherits: true; initial-value: #EFEDE7; }
+
+:root {
+  /* neutrals */
+  --paper: #EFEDE7;
+  --paper-warm: #E7E2D9;
+  --sand: #A79685;
+  --sand-deep: #8A7B6E;
+  --ink: #1B1819;
+  --ink-soft: #4A443F;
+  --line: rgba(27, 24, 25, 0.14);
+
+  /* type */
+  --font-text: 'Archivo Variable', system-ui, sans-serif;
+  --font-display: 'Pinyon Script', cursive; /* HOMEPAGE ONLY — see spec 4.3 */
+
+  --track-wordmark: 0.38em;
+  --track-label: 0.18em;
+
+  /* motion */
+  --dur-fast: 240ms;
+  --dur-base: 520ms;
+  --dur-slow: 900ms;
+  --dur-ground: 700ms;
+  --ease-hop: cubic-bezier(0.9, 0, 0.1, 1);
+  --ease-glide: cubic-bezier(0.8, 0, 0.2, 1);
+
+  /* layout */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --measure: 62ch;
+}
+
+/* The colour-tween ground. A flat background-color would transition fine, but
+   this is a soft radial wash and gradients do not interpolate without
+   registered custom properties — hence the @property declarations above. */
+.ground {
+  background: radial-gradient(120% 80% at 50% 0%, var(--ground-soft), var(--paper) 70%);
+  transition:
+    --ground var(--dur-ground) var(--ease-glide),
+    --ground-soft var(--dur-ground) var(--ease-glide);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ground { transition: none; }
+}
