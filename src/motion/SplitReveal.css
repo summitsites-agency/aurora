@@ -1,0 +1,5 @@
+.split-reveal { display: block; }
+
+/* The finished state. Animation overrides this downward, so with JS disabled or
+   reduced motion on, the text is simply visible. */
+.split-reveal__line { display: block; }
