@@ -472,7 +472,7 @@ export default function Shop() {
         <p className="u-label">The collection</p>
         <SplitReveal as="h1" className="shop__title">Eight shades. One silhouette.</SplitReveal>
         <p className="shop__body">
-          The same considered cut, dyed eight ways.每 piece is made to order.
+          The same considered cut, dyed eight ways. Every piece is made to order.
         </p>
         <p className="shop__count u-label">{products.length} colourways</p>
       </div>
@@ -516,8 +516,6 @@ export default function Shop() {
   );
 }
 ```
-
-**Note:** the body copy above contains a stray non-English character (`每`). Replace it with `Every` when writing the file — it is a typo, not intentional.
 
 - [ ] **Step 3: Build, test, commit**
 
