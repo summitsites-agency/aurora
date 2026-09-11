@@ -1,0 +1,19 @@
+.craft-p { padding: calc(var(--gutter) * 4) var(--gutter) 0; }
+.craft-p__head { max-width: var(--measure); }
+.craft-p__title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 200; line-height: 1.02; }
+.craft-p__standfirst { margin-top: 1.25rem; color: var(--ink-soft); max-width: 46ch; font-size: 1.1rem; }
+
+.craft-p__band { margin: calc(var(--gutter) * 3) calc(var(--gutter) * -1); }
+.craft-p__band img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 45%; }
+
+.craft-p__sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(var(--gutter) * 1.5);
+  padding-bottom: calc(var(--gutter) * 4);
+}
+@media (max-width: 860px) { .craft-p__sections { grid-template-columns: 1fr; } }
+
+.craft-p__sec h2 { font-size: 1.35rem; font-weight: 400; margin-bottom: 0.75rem; }
+.craft-p__sec p { color: var(--ink-soft); max-width: 42ch; }
+.craft-p__num { display: block; margin-bottom: 0.5rem; color: var(--sand-deep); }
