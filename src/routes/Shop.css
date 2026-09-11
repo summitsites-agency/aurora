@@ -1,0 +1,43 @@
+.shop { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 3); }
+
+.shop__head { max-width: var(--measure); margin-bottom: calc(var(--gutter) * 2); }
+.shop__title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 200; line-height: 1.02; }
+.shop__body { margin-top: 1rem; color: var(--ink-soft); max-width: 44ch; }
+.shop__count { margin-top: 1.5rem; }
+
+.shop__grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter);
+}
+@media (max-width: 1024px) { .shop__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .shop__grid { grid-template-columns: 1fr; } }
+
+.shop__card { position: relative; }
+
+/* Explicit plate behind every knockout. If an ancestor ever gains a transform
+   and isolates the blend, the image composites against this instead of against
+   nothing — a slightly-wrong tint rather than a hard white box. Square: JPEG
+   noise darkens knockout corners and a radius would clip that into arcs. */
+.shop__plate { display: block; border-radius: 0; }
+
+.shop__img {
+  width: 100%; height: auto;
+  mix-blend-mode: multiply;
+  transition: transform var(--dur-base) var(--ease-glide);
+}
+/* The transform is on the IMG, never on the plate or the card — a transform on
+   an ancestor would isolate the blend. */
+.shop__card:hover .shop__img,
+.shop__card:focus-within .shop__img { transform: translateY(-8px) scale(1.015); }
+
+.shop__meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.9rem; }
+.shop__name { display: flex; align-items: center; gap: 0.55rem; }
+.shop__swatch {
+  width: 0.85rem; height: 0.85rem; border-radius: 50%;
+  background: linear-gradient(140deg, var(--sw-light), var(--sw));
+}
+.shop__note { margin-top: 0.35rem; color: var(--ink-soft); font-size: 0.9rem; max-width: 30ch; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shop__img { transition: none; }
+}
