@@ -18,8 +18,8 @@
 | Spec | `docs/design-spec.md` |
 | Plan sequence | 3 of 4 — Commerce |
 | Active plan | `docs/plan-03-commerce.md` |
-| Current task | **8** |
-| Status | `TASK_COMPLETE` |
+| Current task | **—** |
+| Status | `PLAN_COMPLETE` |
 | Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
@@ -676,3 +676,25 @@ have to rediscover.
   (browser verification) is explicitly out of scope for this batch per the
   controller's instructions and is left for whoever picks up the ledger
   next.
+- **2026-09-11 — PLAN 3 COMPLETE, verified in a real browser.** 44 tests, build
+  clean, zero console errors beyond the known favicon 404. Confirmed by
+  observation at 1440x900:
+  - `/shop` — 8 cards, `multiply`, `border-radius: 0`, swatches, per-colourway
+    notes, ground tween on hover.
+  - `/shop/ember` — **the highest-risk page.** Plate is `groundSoft`
+    (`rgb(227,212,208)`), NOT `hex` (`rgb(140,27,38)`), so the garment reads
+    clearly instead of being swallowed by the red. This was the trap flagged at
+    the end of Plan 2 and it held.
+  - Add-to-bag without a size → "Choose a size first." and the bag stays at 0.
+    With a size → `aria-pressed` flips, the line is added, the drawer opens.
+  - Checkout with 2 units → subtotal $396.00, shipping **Free** (crosses the
+    $250 threshold), total $396.00, pay button disabled and labelled with the
+    real total.
+  - Decrementing quantity to zero removes the line and shows the empty state
+    with **no phantom shipping row** — the case `shippingFor(0) === 0` exists
+    for.
+  - No `/fit` link anywhere.
+- **2026-09-11 — Note: `--ground` is currently unused for painting.** The
+  `.ground` radial gradient reads only `--ground-soft`; `--ground` is set to the
+  full-saturation hex and is available as an accent token. Harmless, but do not
+  assume setting `--ground` changes the background.
