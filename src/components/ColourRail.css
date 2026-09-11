@@ -1,0 +1,11 @@
+.rail { padding: calc(var(--gutter) * 2) 0 0; border-top: 1px solid var(--line); }
+.rail__list {
+  list-style: none; margin: var(--gutter) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 1rem;
+}
+@media (max-width: 900px) { .rail__list { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 520px) { .rail__list { grid-template-columns: repeat(3, 1fr); } }
+
+.rail__plate { display: block; border-radius: 0; }
+.rail__img { width: 100%; height: auto; mix-blend-mode: multiply; }
+.rail__name { margin-top: 0.5rem; }
