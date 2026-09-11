@@ -1,0 +1,14 @@
+.jr { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 4); }
+.jr__head { max-width: var(--measure); margin-bottom: calc(var(--gutter) * 2); }
+.jr__title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 200; line-height: 1.02; }
+.jr__standfirst { margin-top: 1rem; color: var(--ink-soft); }
+
+.jr__plates { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter); }
+/* Every photograph is landscape 2400x1340. A "wide" plate spans both columns;
+   no plate is ever taller than it is wide, because no portrait crop exists. */
+.jr__plate--wide { grid-column: 1 / -1; }
+@media (max-width: 700px) { .jr__plates { grid-template-columns: 1fr; } }
+
+.jr__plate img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.jr__plate--wide img { aspect-ratio: 21 / 9; }
+.jr__caption { margin-top: 0.75rem; color: var(--ink-soft); }
