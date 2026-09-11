@@ -6,8 +6,7 @@ import './Nav.css';
 const LINKS = [
   ['/shop', 'Shop'],
   ['/craft', 'The Craft'],
-  ['/journal', 'Journal'],
-  ['/contact', 'Contact'],
+  ['/anatomy', 'The Anatomy'],
 ];
 
 export default function Nav() {
@@ -44,7 +43,7 @@ export default function Nav() {
       <nav className="nav" data-shrunk={shrunk}>
         <Link to="/" className="nav__mark">Aurora</Link>
 
-        {/* Desktop: the links inline. Hidden below 860px, where four labels
+        {/* Desktop: the links inline. Hidden below 860px, where the labels
             plus the bag collide with the wordmark. */}
         <div className="nav__links nav__links--wide u-label">
           {LINKS.map(([to, label]) => (

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { products } from '../data/products.js';
+import { shop } from '../data/content.js';
 import { formatPrice } from '../lib/format.js';
 import { useGround } from '../ground/GroundProvider.jsx';
 import SplitReveal from '../motion/SplitReveal.jsx';
+import Reveal from '../motion/Reveal.jsx';
 import { useDocumentTitle } from '../lib/useDocumentTitle.js';
 import './Shop.css';
 
@@ -13,15 +15,24 @@ export default function Shop() {
   return (
     <main className="shop">
       <div className="shop__head">
-        <p className="u-label">The collection</p>
-        <SplitReveal as="h1" className="shop__title">Eight shades. One silhouette.</SplitReveal>
-        <p className="shop__body">
-          The same considered cut, dyed eight ways. Every piece is made to order.
-        </p>
+        <p className="u-label">{shop.label}</p>
+        <SplitReveal as="h1" className="shop__title">{shop.title}</SplitReveal>
+        <p className="shop__body">{shop.body}</p>
         <p className="shop__count u-label">{products.length} colourways</p>
       </div>
 
-      <ul className="shop__grid">
+      {/* The last thing read before the photography. Without it the grid is
+          where someone first learns the suit is cut to order. */}
+      <Reveal as="dl" className="shop__notes" stagger={0.1}>
+        {shop.notes.map((note) => (
+          <div className="shop__note-row" key={note.term}>
+            <dt className="shop__note-term u-label">{note.term}</dt>
+            <dd className="shop__note-detail">{note.detail}</dd>
+          </div>
+        ))}
+      </Reveal>
+
+      <Reveal as="ul" className="shop__grid" stagger={0.07} duration={0.8}>
         {products.map((p) => (
           <li
             className="shop__card"
@@ -55,7 +66,7 @@ export default function Shop() {
             </Link>
           </li>
         ))}
-      </ul>
+      </Reveal>
     </main>
   );
 }

@@ -1,7 +1,8 @@
 /* AURORA design tokens.
-   Neutrals sampled from the client's hero photograph; ink and paper taken from
-   the brand's own Eclipse and Salt colourways. No invented accent — the eight
-   colourways ARE the accent system. */
+   Neutrals sampled from the client's hero photograph. --ink is the Eclipse
+   colourway; --paper was sampled from the retired Salt colourway and is kept
+   as-is, because every ground in products.js is derived by mixing over it.
+   No invented accent — the seven colourways ARE the accent system. */
 
 @property --ground      { syntax: '<color>'; inherits: true; initial-value: #EFEDE7; }
 @property --ground-soft { syntax: '<color>'; inherits: true; initial-value: #EFEDE7; }

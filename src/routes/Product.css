@@ -21,15 +21,41 @@
 .pdp__fieldhead { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
 
 .pdp__add {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   margin-top: 1.75rem;
   padding: 1.05rem 1.5rem;
   background: var(--ink);
   color: var(--paper);
-  transition: opacity var(--dur-fast) var(--ease-glide);
 }
-.pdp__add:hover { opacity: 0.86; }
+
+/* Paper rises from the bottom edge; the label darkens to ink on the same
+   curve and duration so the two arrive together. */
+.pdp__addfill {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur-base) var(--ease-glide);
+}
+.pdp__addlabel {
+  position: relative;
+  transition: color var(--dur-base) var(--ease-glide);
+}
+
+.pdp__add:hover .pdp__addfill,
+.pdp__add:focus-visible .pdp__addfill { transform: scaleY(1); }
+.pdp__add:hover .pdp__addlabel,
+.pdp__add:focus-visible .pdp__addlabel { color: var(--ink); }
+
 .pdp__add:disabled { opacity: 0.4; cursor: not-allowed; }
+.pdp__add:disabled .pdp__addfill { transform: scaleY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp__addfill, .pdp__addlabel { transition: none; }
+}
 
 .pdp__hint { margin-top: 0.75rem; color: var(--ink-soft); min-height: 1.4em; }
 .pdp__panels { margin-top: 2.5rem; }

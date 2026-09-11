@@ -1,6 +1,8 @@
-.jr { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 4); }
+/* Section padding and title scale match .coll — this is now a homepage section
+   under the hero, not a page, so it must not out-shout the h1 in Hero. */
+.jr { padding: calc(var(--gutter) * 3) var(--gutter); }
 .jr__head { max-width: var(--measure); margin-bottom: calc(var(--gutter) * 2); }
-.jr__title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 200; line-height: 1.02; }
+.jr__title { font-size: clamp(1.8rem, 4.5vw, 3.4rem); font-weight: 200; line-height: 1.05; }
 .jr__standfirst { margin-top: 1rem; color: var(--ink-soft); }
 
 .jr__plates { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter); }

@@ -1,0 +1,59 @@
+/* One row on desktop, stacked below 720px. Deliberately shallow: this sits at
+   the bottom of every page, so its height is a tax paid on every scroll. */
+.ft {
+  background: var(--sand);
+  color: var(--paper);
+  padding: calc(var(--gutter) * 0.9) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  flex-wrap: wrap;
+}
+
+.ft__brand { display: flex; align-items: center; gap: 0.8rem; flex: none; }
+
+/* The emblem crop keeps ~35px of paper outside the printed ring, so a 50%
+   radius lands in that margin rather than shaving the ring itself. */
+.ft__seal {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.ft__words { display: flex; flex-direction: column; gap: 0.2rem; }
+.ft__name {
+  letter-spacing: var(--track-wordmark);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.ft__desc { opacity: 0.75; line-height: 1; font-size: 0.62rem; }
+
+/* Pinyon #3 of 3, and the only one off the homepage. Kept small: at the Closing
+   section's clamp it was 7rem tall and would have made the footer deeper than
+   the thing it sits under. */
+.ft__script {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1;
+  /* Pinyon's descenders clip against a tight line-height. */
+  padding-bottom: 0.15em;
+  /* Takes the slack between brand and nav so the line sits optically centred
+     rather than wherever space-between happens to leave it. */
+  flex: 1;
+  text-align: center;
+}
+
+.ft__nav { display: flex; gap: 1.4rem; flex-wrap: wrap; flex: none; }
+
+@media (max-width: 720px) {
+  .ft {
+    justify-content: flex-start;
+    gap: 1.1rem;
+    padding: calc(var(--gutter) * 1.2) var(--gutter);
+  }
+  .ft__brand, .ft__script, .ft__nav { flex-basis: 100%; }
+  .ft__script { text-align: left; flex-grow: 0; }
+}

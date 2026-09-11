@@ -1,4 +1,4 @@
-/** Shared PDP copy. Identical for all eight colourways — same garment, same
+/** Shared PDP copy. Identical for all seven colourways — same garment, same
  *  construction, different dye lot. NOTHING here is confirmed by the client;
  *  every assertion is mirrored into CONTENT.md via `claims`. */
 

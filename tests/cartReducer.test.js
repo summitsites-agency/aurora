@@ -43,13 +43,13 @@ describe('cartReducer', () => {
   });
 
   it('removes a line explicitly', () => {
-    let s = cartReducer(emptyCart, add('salt', 'XS'));
-    s = cartReducer(s, { type: 'remove', slug: 'salt', size: 'XS' });
+    let s = cartReducer(emptyCart, add('horizon', 'XS'));
+    s = cartReducer(s, { type: 'remove', slug: 'horizon', size: 'XS' });
     expect(s.lines).toHaveLength(0);
   });
 
   it('clears every line', () => {
-    let s = cartReducer(emptyCart, add('salt', 'XS'));
+    let s = cartReducer(emptyCart, add('horizon', 'XS'));
     s = cartReducer(s, add('clay', 'M'));
     s = cartReducer(s, { type: 'clear' });
     expect(s.lines).toEqual([]);

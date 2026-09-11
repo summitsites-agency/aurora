@@ -1,8 +1,8 @@
-/** The eight colourways. One silhouette, eight dye lots.
+/** The seven colourways. One silhouette, seven dye lots.
  *  hex / hexLight are sampled from the client's product photography.
  *
  *  groundSoft — the page ground behind a product — is DERIVED, not written by
- *  hand. Earlier it was hand-authored and 7 of the 8 values had drifted from
+ *  hand. Earlier it was hand-authored and almost every value had drifted from
  *  the documented ratio by up to 10 levels, which no test could see. Deriving
  *  it makes that class of drift impossible. */
 export const GROUND_MIX = 0.12;
@@ -52,11 +52,6 @@ export const products = [
     slug: 'ember', name: 'Ember',
     hex: '#8c1b26', hexLight: '#9f3740',
     note: 'Deep wine red, the last light of the day.',
-  },
-  {
-    slug: 'salt', name: 'Salt',
-    hex: '#dcdbd8', hexLight: '#efefee',
-    note: 'Barely off-white, like sea salt dried on skin.',
   },
 ].map((p) => ({
   ...p,

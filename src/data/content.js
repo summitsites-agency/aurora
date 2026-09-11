@@ -2,47 +2,132 @@
  *  CONTENT.md. NOTHING here has been confirmed by the client — see `claims`. */
 export const home = {
   hero: {
-    kicker: 'Aurora',
     line1: 'The Sun Kissed',
     script: 'Collection',          // the ONLY Pinyon on the hero
-    standfirst: 'One silhouette. Eight shades. Cut and sewn by hand.',
-    cta: 'View the eight',
+    /** Mobile only. Cut from the desktop hero, kept below the CTA on phones
+     *  where the headline alone leaves the screen empty. */
+    standfirst: 'One silhouette. Seven shades. Cut and sewn by hand.',
+    cta: 'View all',
   },
 
-  anatomy: {
-    label: 'The anatomy',
-    claims: [
-      { title: 'Seventeen pieces.', body: 'Every set is cut from seventeen separate pattern pieces, by hand, one at a time.' },
-      { title: 'One pair of hands.', body: 'A single maker sees each set from first cut to final stitch. No production line.' },
-      { title: 'Italian fabric.',    body: 'A dense, high-recovery knit that holds its shape wet, dry, and season after season.' },
+  collection: {
+    label: 'The collection',
+    title: 'Seven shades. One silhouette.',
+    body: 'The same considered cut, dyed seven ways. Choose the one you will actually live in.',
+  },
+
+  /** Every assertion of fact on this page. Mirror into CONTENT.md.
+   *  The construction claims moved to the Anatomy page with the scrub, and the
+   *  film claim moved with the editorial band into the global furniture. */
+  claims: [],
+};
+
+/** The editorial band. Global furniture, not homepage copy — it renders above
+ *  the footer on every route, so it lives at the top level rather than under
+ *  `home`. Pinyon #2 of 3. */
+export const editorial = {
+  script: 'Made for the water',
+  body: 'Photographed on film at golden hour, unretouched.',
+  claims: [
+    { id: 'film', text: 'shot on film, unretouched', needsSignoff: true },
+  ],
+};
+
+/** The Shop page head. Sits above the grid, so it is the last thing read
+ *  before the photography. `notes` are the three questions the PDP answers
+ *  further down — surfaced here so the grid is not the first place anyone
+ *  learns the suit is made to order. Unconfirmed; see `claims`. */
+export const shop = {
+  label: 'The collection',
+  title: 'Seven shades. One silhouette.',
+  body: 'The same considered cut, dyed seven ways. Every piece is made to order.',
+  notes: [
+    { term: 'Made to order', detail: 'Each set is cut after you buy it, not pulled from a shelf.' },
+    { term: 'Fully lined',   detail: 'Front and back, in the same Italian knit as the shell.' },
+    { term: 'Sizes XS–L',    detail: 'Fit notes and measurements sit on every product page.' },
+  ],
+  claims: [
+    { id: 'made-to-order', text: 'cut to order, not stocked',      needsSignoff: true },
+    { id: 'lined',         text: 'fully lined in the shell fabric', needsSignoff: true },
+    { id: 'sizes',         text: 'size range XS-L',                 needsSignoff: true },
+  ],
+};
+
+/** The global footer. `script` was the homepage Closing section's line — it is
+ *  now site-wide, which is the one place Pinyon leaves the homepage. Client's
+ *  call; see the Pinyon note in docs/design-spec.md. */
+export const footer = {
+  script: 'Yours for a very long time',
+  name: 'Aurora',
+  descriptor: 'Swimwear',
+};
+
+/** The Anatomy page — the pinned frame scrub that used to sit on the homepage.
+ *  `steps` is display copy pinned to the scrub windows; `claims` is the
+ *  sign-off mirror, same split as `craft`. */
+export const anatomy = {
+  label: 'The anatomy',
+  title: 'Inside the suit.',
+  standfirst: 'One set, taken apart piece by piece.',
+  steps: [
+    { title: 'Seventeen pieces.', body: 'Every set is cut from seventeen separate pattern pieces, by hand, one at a time.' },
+    { title: 'One pair of hands.', body: 'A single maker sees each set from first cut to final stitch. No production line.' },
+    { title: 'Italian fabric.',    body: 'A dense, high-recovery knit that holds its shape wet, dry, and season after season.' },
+  ],
+
+  /** Read after the scrub. Deliberately about construction rather than
+   *  marketing — the scrub shows the garment coming apart, this says what the
+   *  parts are. Every line is an unconfirmed assertion; see `claims`. */
+  build: {
+    label: 'What the pieces are',
+    title: 'Where a set gains and loses its shape.',
+    rows: [
+      {
+        term: 'The shell',
+        detail:
+          'A dense Italian knit, matte on the face and smooth against the ' +
+          'skin. High recovery is the whole point: it is what stops a set ' +
+          'bagging at the seat after an afternoon in salt water.',
+      },
+      {
+        term: 'The lining',
+        detail:
+          'Fully lined front and back in the same weight, not a lighter ' +
+          'mesh. It doubles the fabric everywhere, which is why the colour ' +
+          'holds when wet instead of going sheer.',
+      },
+      {
+        term: 'The seams',
+        detail:
+          'Overlocked, then topstitched flat. The second pass is what keeps ' +
+          'an edge from rolling, and it is the slowest part of the make.',
+      },
+      {
+        term: 'The ties',
+        detail:
+          'Cut on the same grain as the body so they stretch at the same ' +
+          'rate. Cut across it and they lengthen over a season while the ' +
+          'cups do not.',
+      },
     ],
   },
 
-  eight: {
-    label: 'The collection',
-    title: 'Eight shades. One silhouette.',
-    body: 'The same considered cut, dyed eight ways. Choose the one you will actually live in.',
+  /** The one thing the scrub cannot show: what it costs in time. Set in
+   *  Archivo, NOT the display face — Pinyon is rationed to three appearances
+   *  site-wide and all three are spoken for (hero, editorial, footer). */
+  coda: {
+    line: 'Seventeen pieces, one pair of hands.',
+    body: 'Made to order, which is why it takes as long as it takes.',
   },
 
-  editorial: {
-    script: 'Made for the water',   // Pinyon #2
-    body: 'Photographed on film at golden hour, unretouched.',
-  },
-
-
-  journal: { label: 'The journal', title: 'On the sand' },
-
-  closing: {
-    script: 'Yours for a very long time',  // Pinyon #3
-    cta: 'Shop the collection',
-  },
-
-  /** Every assertion of fact on this page. Mirror into CONTENT.md. */
   claims: [
     { id: 'pieces',   text: '17 pattern pieces per set',       needsSignoff: true },
     { id: 'maker',    text: 'one maker per set, no line',      needsSignoff: true },
     { id: 'fabric',   text: 'Italian high-recovery knit',      needsSignoff: true },
-    { id: 'film',     text: 'shot on film, unretouched',       needsSignoff: true },
+    { id: 'lined',    text: 'fully lined front and back, same weight', needsSignoff: true },
+    { id: 'seams',    text: 'overlocked then topstitched flat', needsSignoff: true },
+    { id: 'grain',    text: 'ties cut on the body grain',       needsSignoff: true },
+    { id: 'to-order', text: 'made to order',                    needsSignoff: true },
   ],
 };
 
@@ -91,7 +176,7 @@ export const craft = {
 };
 
 /** The Journal. Editorial only — no prices, no colourway names. The suit in
- *  these photographs is a tan that is NOT one of the eight colourways, so any
+ *  these photographs is a tan that is NOT one of the seven colourways, so any
  *  price beside them would promise a match that does not exist. */
 export const journal = {
   label: 'The journal',
@@ -108,21 +193,3 @@ export const journal = {
   ],
 };
 
-/** Contact. The email and handle are placeholders. */
-export const contact = {
-  label: 'Contact',
-  title: 'Talk to us.',
-  standfirst:
-    'Aurora is small enough that a person reads every message. Commissions, ' +
-    'sizing questions, or anything else.',
-  email: 'hello@aurora.example',
-  responseTime: 'We reply within two working days.',
-  commissions:
-    'We take a small number of made-to-measure commissions each season. Tell ' +
-    'us what you have in mind.',
-  claims: [
-    { id: 'email',      text: 'hello@aurora.example',          needsSignoff: true },
-    { id: 'reply-time', text: 'replies within 2 working days', needsSignoff: true },
-    { id: 'commissions', text: 'made-to-measure commissions offered', needsSignoff: true },
-  ],
-};

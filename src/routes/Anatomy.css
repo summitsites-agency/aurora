@@ -1,0 +1,55 @@
+/* Page chrome only. The scrub itself is styled by sections/Anatomy.css — keep
+   the two prefixes apart (`an__` here, `anatomy__` there) so a change to the
+   page head can never reach into the pinned stage. */
+.an__head {
+  max-width: var(--measure);
+  padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 2);
+}
+.an__title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 200; line-height: 1.02; }
+.an__standfirst { margin-top: 1rem; color: var(--ink-soft); }
+
+/* --- What the pieces are ------------------------------------------------ */
+
+.an__build { padding: calc(var(--gutter) * 3) var(--gutter); }
+.an__buildhead { max-width: var(--measure); margin-bottom: calc(var(--gutter) * 2); }
+.an__buildtitle {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 200;
+  line-height: 1.05;
+  margin-top: 0.5rem;
+}
+
+.an__rows {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--gutter) * 1.5) var(--gutter);
+}
+@media (max-width: 767px) { .an__rows { grid-template-columns: 1fr; } }
+
+.an__row { border-top: 1px solid var(--line); padding-top: 1rem; }
+.an__term { font-size: 1.15rem; font-weight: 400; }
+.an__detail { margin: 0.6rem 0 0; color: var(--ink-soft); max-width: 46ch; }
+
+/* --- Coda --------------------------------------------------------------- */
+
+.an__coda {
+  padding: calc(var(--gutter) * 3) var(--gutter) calc(var(--gutter) * 4);
+  text-align: center;
+}
+/* Archivo, not the display face — see the note on `anatomy.coda` in content.js.
+   Pinyon is rationed to three appearances and all three are spoken for. */
+.an__codaline {
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  font-weight: 200;
+  line-height: 1.1;
+  max-width: 20ch;
+  margin-inline: auto;
+}
+.an__codabody { margin-top: 1rem; color: var(--ink-soft); }
+.an__codacta {
+  display: inline-block;
+  margin-top: 1.75rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+}

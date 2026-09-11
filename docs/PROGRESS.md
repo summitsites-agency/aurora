@@ -790,3 +790,282 @@ in this build needed an actual screenshot.
    button.
 3. **Real photography for the eight colourways.** The model shots are editorial
    only because the suit in them matches none of the eight dye lots.
+
+---
+
+## Plan 5 — client revisions, 2026-09-11
+
+Six changes, all client-requested. Ledger entries below record the parts a
+future session would otherwise rediscover the hard way.
+
+### What changed
+
+1. **The JS cursor is gone.** `src/motion/Cursor.jsx` + `.css` deleted, unmounted
+   from `App.jsx`. Nothing else referenced it. `useIsFinePointer` in
+   `lib/useMediaQuery.js` is now unused but kept — it sits beside `useIsDesktop`
+   as a general hook, and deleting it is unrelated churn.
+2. **Salt retired — the range is seven, not eight.** Its two product images were
+   deleted with it. Every user-facing "eight" became "seven": hero standfirst
+   and CTA, the collection section, the Shop head, `MarqueeRail`, the empty-bag
+   link, and the `<meta name="description">`. `TheEight.jsx/.css` → `TheCollection`
+   and the `.eight__*` class prefix → `.coll__*`; `home.eight` → `home.collection`.
+3. **`/contact` removed entirely**, including the `contact` export in
+   `content.js` and its test. See the warning in `CONTENT.md`: the site now has
+   **no contact surface at all**.
+4. **Journal and Anatomy swapped.** The journal was a route and is now the first
+   homepage section under the hero (`sections/Journal.jsx`, h1 demoted to h2 —
+   Hero still owns the page's only h1, which is what `PageTransition` focuses).
+   Anatomy was a homepage section and is now `/anatomy` (`routes/Anatomy.jsx`
+   wrapping the unchanged scrub). `JournalStrip` was deleted: it was a teaser
+   for a page that no longer exists, showing the same photographs.
+5. **`GrainReveal` removed from the journal plates** — the client read the 26px
+   mosaic dissolve as a pixelation artefact. **`Craft.jsx` still uses it** on its
+   band image; that was not in scope but is now the only caller.
+6. **The client's logo is in** as the favicon and a footer seal.
+
+### Things that bit, and the fixes
+
+- **Removing routes without a catch-all is silent.** `/journal` and `/contact`
+  rendered nav + footer with an empty `<main>` between them — not a 404, just a
+  blank band. Added `routes/NotFound.jsx` on `path="*"`.
+- **The anatomy label rendered twice** once the scrub got a page head: the stage
+  printed `anatomy.label` and so did the head, one above the other in the same
+  viewport. The stage's copy is gone; `aria-label` carries the accessible name.
+  `.anatomy__label` dropped from the CSS.
+- **`media-src/Logo.jpeg` is a presentation mockup, not a logo asset** — the
+  logo photographed on textured cream paper. Two hard consequences:
+  - *It cannot go on any non-cream ground.* Placed square on the sand footer it
+    read as a pasted sticker. A luminance knockout does not rescue it either:
+    the paper measures ~197–211 and the shell's gold linework ~177–197, so any
+    alpha ramp that keeps the shell also keeps paper texture. The footer masks
+    the emblem to the circle it already contains instead — it reads as a
+    pressed seal. **Get the vector from the client.**
+  - *The linework is a print weight.* At 32px the outer ring and shell ribs
+    collapse to a beige blob. The 32/180 icons crop tighter (ring dropped, ~45%
+    more mark per pixel) and lift contrast first; only `logo-emblem.png` keeps
+    the ring.
+- **Everything under `public/` ships verbatim.** The first pass emitted a 512px
+  icon and a full lockup that nothing linked — 870kB of dead weight in `dist`.
+  `scripts/media/logo.mjs` now emits only what `index.html` and the footer
+  reference; `buildLockup()` is exported but not called.
+- The collection grid is `repeat(4, 1fr)`, so seven products leave one empty
+  cell on the second row. Checked in a screenshot and left alone — it reads as
+  a normal shop grid, not as a missing tile.
+
+### Outstanding, updated
+
+The three items above still stand, with "eight" now reading "seven", plus:
+
+4. **No contact surface.** Confirm that is intended, or restore one.
+5. **The logo vector.** Until it arrives the mark cannot leave a cream ground,
+   and the favicon stays soft at tab size.
+
+### Plan 5b — the footer, same day
+
+**Smaller.** The footer was a stacked block ~360px deep on every page. Now one
+flex row — seal + wordmark, script, nav — at **148px desktop / 173px at 390px**.
+Padding dropped to `--gutter * 0.9`, the seal from 68px to 44px.
+
+**The closing line moved into it.** `sections/Closing.jsx` + `.css` are deleted
+and removed from `Home`; `home.closing` became a `footer` export in
+`content.js`. The line now renders on every page.
+
+Two consequences worth knowing:
+
+- **The Pinyon rule changed meaning.** It was "homepage only, exactly three
+  appearances", guarded by `tests/fontRule.test.js`. A global footer line puts
+  Pinyon on `/shop`, `/craft`, `/checkout` and everywhere else, so the rule is
+  now a **count** — three appearances, one of them site-wide. The allowlist
+  swapped `sections/Closing` for `components/Footer`; `docs/design-spec.md`
+  §4.3 records the before/after. The footer sets it at
+  `clamp(1.5rem, 3vw, 2.1rem)`, not the Closing section's `clamp(2.6rem, 9vw,
+  7rem)` — at 7rem the footer is taller than most pages' content.
+- **The Closing CTA ("Shop the collection") is gone**, not relocated. The
+  footer nav already links to `/shop` and a second shop CTA a few pixels away
+  was noise. If the homepage wants a closing CTA back, it needs a new section —
+  the old one is not recoverable from `home.closing`.
+
+**Open, minor:** the homepage now ends on `Editorial`, whose Pinyon pull-quote
+sits directly above the footer's Pinyon line — two script lines stacked. Fixable
+by reordering `Home.jsx` so `Editorial` is not last, but the journal-under-hero
+order was an explicit client request, so it was left alone.
+
+### Plan 5c — motion pass, ported from the Summit rebrand
+
+Source: `C:\Users\sport\OneDrive\Documents\CodingPersonal\Summit-rebrand`. That
+project runs **framer-motion**; this one runs **GSAP**. Nothing was copied
+verbatim — adding a second animation library for three components would have
+cost more bundle than the components are worth. The behaviours were re-authored
+against `gsap` + `ScrollTrigger` and the existing `useGsapScope`.
+
+**Not ported:** `Cursor.jsx` (explicitly excluded), `textify.jsx` (this project's
+`SplitReveal` already does the masked line rise via GSAP's own SplitText),
+`ImageStreamHero` and `PinnedProcess` (wrong brief — Aurora's Anatomy scrub
+already owns the pinned moment).
+
+**New — `src/motion/Reveal.jsx`.** The workhorse scroll reveal, so everything
+non-type enters on one curve and one duration instead of a dozen near-misses.
+Variants `up` / `curtain` / `wipe` / `fade` / `rule`. Applied to the Craft band
+(curtain), the Craft section grid, the homepage collection grid and the Shop
+grid (staggered `up`).
+
+- **The hidden state is set by JS, never CSS.** `useGsapScope` skips setup
+  entirely under reduced motion, so a CSS hidden state would leave content
+  permanently invisible for those users. It runs in a layout effect, so the
+  hidden state lands before paint and nothing flashes.
+- **`curtain` scales the CHILD, not the wrapper it clips.** Summit's version
+  scales the clipped element, which is fine for a boxed image. Aurora's craft
+  band is full-bleed with negative margins; an 8% scale on it pushes
+  `scrollWidth` past `clientWidth` and raises a horizontal scrollbar. Clipping a
+  parent also clips its descendants, so the oversized child stays hidden.
+  Verified: `scrollWidth === clientWidth` on `/`, `/craft`, `/shop`,
+  `/shop/:slug`, `/anatomy`.
+- **`as="ul"` matters.** The collection and shop grids are lists; a wrapper
+  `<div>` between `<ul>` and its `<li>`s breaks the semantics. Asserted in the
+  browser check: grid is `UL`, children are all `LI`.
+
+**New — `src/motion/Magnetic.jsx`.** Element magnetism on the hero CTA.
+framer-motion's `useSpring` became `gsap.quickTo`, which writes to the transform
+without a React render per frame. Inert on coarse pointers and reduced motion.
+This is not a cursor: the pointer stays the system one.
+
+`data-hero-in` stays on the `<Link>`, **not** on the Magnetic wrapper. The hero
+intro tween writes `yPercent`/`opacity` and Magnetic writes `x`/`y`; on one
+element those share a transform and fight for the 1.1s the intro runs.
+
+**New — the PDP sweep fill**, ported from Summit's `AccentButton`. Pure CSS.
+The button is already ink-on-paper so it inverts the other way: paper rises from
+the bottom edge, label darkens to ink, both on one duration and curve.
+
+**Removed — `GrainReveal`.** The mosaic dissolve is gone from the last caller
+(the Craft band) and the component is deleted. Journal plates stay plain `<img>`
+by explicit request; the Craft band got `curtain` instead.
+
+### The bug this pass uncovered
+
+`src/lib/useMediaQuery.js` was `useState(false)` with an effect to correct it,
+so **the first render of every consumer answered "false" regardless of the
+truth.** Consequences, in order of severity:
+
+1. `useGsapScope` gates on `useReducedMotion`. First render said "no reduced
+   motion", so the setup ran, stamped the hidden state onto elements and
+   registered a ScrollTrigger. The effect then flipped the flag and the context
+   reverted — but the trigger it had already created survived. **Reduced-motion
+   users got the animation anyway.** Measured before the fix: with
+   `prefers-reduced-motion: reduce`, a collection card sat at `opacity 0,
+   translateY(34px)` and animated in on scroll. After: `opacity 1,
+   transform: none`, no animation.
+2. `useIsDesktop` made Anatomy render its mobile three-frame fallback for a
+   frame on desktop before swapping to the canvas.
+
+Fixed by reading `matchMedia` in the `useState` initialiser — which is exactly
+what the Summit rebrand's `lib/motion.js` already does. `tests/setup.js`'s
+polyfill is a real MediaQueryList with a `matches` getter, so this works under
+jsdom unchanged.
+
+**`tests/useMediaQuery.test.jsx` guards it, and the guard was itself verified**
+by reverting the implementation and watching 4 of its 5 assertions fail. The
+test records the hook's value on every render pass rather than reading the DOM:
+`render` wraps in `act`, which flushes effects and re-renders, so the markup
+shows the corrected value even when the first pass was wrong. Asserting on the
+DOM here proves nothing.
+
+### Plan 5d — client revisions round 2, 2026-09-11
+
+**Hero.** The AURORA kicker is gone (the fixed nav wordmark sat directly above
+it, so the brand rendered twice). `home.hero.kicker` was deleted, not just
+hidden, and `tests/content.test.js` asserts it stays undefined. The headline
+moved up into the space it held. Pinyon `Collection` no longer overlaps the
+Archivo line — its ascenders hit KISSED's baseline and read as a collision, not
+an overlap; now `margin-top: 0.08em`, `line-height: 0.9`. CTA is **View all**
+(also changed on `/checkout` and the 404, which used the same string).
+
+The standfirst is **mobile-only** and sits *below* the CTA in the DOM. Cut from
+the desktop hero at the client's request but kept on phones, where the headline
+alone leaves the screen empty.
+
+> **Gotcha.** Dropping the hero's top padding to `--gutter * 1.35` looked right
+> on desktop and put the headline straight through the nav on a phone:
+> `--gutter` bottoms out at 1.25rem, giving ~27px against a ~61px fixed nav. It
+> is now `max(4.75rem, calc(var(--gutter) * 1.35))` — the floor clears the nav
+> at every width and the gutter term still wins above ~1100px, so desktop is
+> unchanged. Any future change to this padding must keep a floor.
+
+**Homepage collection grid shows ONE card on phones** (`max-width: 560px`).
+Seven stacked full-width plates were most of the page's scroll depth. The rest
+are `display: none`, not unrendered, so the markup stays one list — and they
+carry `loading="lazy"`, so a hidden card never fetches its image. `.coll__more`
+adds a mobile-only "View all seven" link; without it the section is a dead end.
+
+**Anatomy page.**
+- Added "What the pieces are" (a `<dl>` of shell / lining / seams / ties) and a
+  closing coda. The coda is set in **Archivo, not Pinyon** — the display face is
+  rationed and all three slots are spoken for.
+- **The first frame now paints on load.** The canvas only ever drew from
+  ScrollTrigger's `onUpdate`, which does not fire until the scroll position
+  changes, so landing on `/anatomy` showed an empty white stage until you
+  moved. Two paths now: a `load` listener on `images[0]` (earliest possible),
+  plus the existing eager callback. `drawRef` is what lets the load callback
+  reach a `draw` declared below it.
+  > The `images[0].complete` branch is deferred with `queueMicrotask`. That
+  > effect is declared **above** the one populating `drawRef`, and effects run
+  > synchronously in declaration order — so on a cache hit an inline call lands
+  > while `drawRef` is still null and silently paints nothing.
+- **Mobile/reduced-motion fallback is two frames, not three.** Frame 96 is a
+  barely-different halfway pose; stacked in a phone column it read as the same
+  photograph twice with different words under it. `STATIC_STEPS` keeps frames 1
+  and 192 with steps 0 and 2.
+
+**Shop page** gained a three-item `<dl>` between the head and the grid, so the
+grid is not where someone first learns the suit is cut to order.
+
+**Nav links got the Summit rebrand's underline.** A `::after` bar at
+`scaleX(0)`, `transform-origin: left`, wiping in on hover/focus. A
+pseudo-element rather than `border-bottom`, which cannot be animated from one
+edge — only faded; and `scaleX` composites on the GPU where animating `width`
+would lay out the nav every frame. The current page keeps its rule drawn (read
+off NavLink's `.active`) and wipes it out *from the right* on hover, so hovering
+the page you are already on is not a no-op.
+
+### The editorial band went global — and was broken on mobile all along
+
+`<Editorial />` now renders in `App.jsx` above the footer on every route, and is
+**outside `PageTransition`** so it does not re-enter on each navigation. Its
+copy moved from `home.editorial` to a top-level `editorial` export, because
+global furniture reading out of `home` is a trap for the next person.
+
+The mobile bug the client reported was not a mobile bug. **`.editorial__media`
+had no CSS rule at all.** Parallax renders a plain `<div>`, so the media sat in
+normal flow at auto height — and `.editorial img { height: 100% }` against an
+auto-height parent computes to `auto`, so the image fell back to its intrinsic
+2400x1340 ratio. At 1440px wide that is 804px inside an 810px section, **so
+desktop looked correct purely by coincidence**. At 390px it is 218px inside a
+760px section, leaving two thirds of the band as empty gradient.
+
+Fixed by making the media absolute and oversized: `inset: -15% 0; height: 130%`.
+The parallax travels the image by ±8% of its own height (`speed: -16`), so
+anything under 116% exposes an edge at one end of the scroll. The band is also
+shorter on phones (58svh) now that it renders on every route.
+
+**Lesson, again: a layout that only works at one viewport is not working.** The
+aspect-ratio coincidence hid a missing rule for the whole build.
+
+### Pinyon, for the third time
+
+Two of the three appearances are now global (editorial + footer), so every page
+carries two Pinyon lines and the homepage carries three. `docs/design-spec.md`
+§4.3 records it. The count rule still passes, but the scarcity argument that
+justified the face is materially weaker than when it was written — flagged
+there for a decision before launch.
+
+### Sign-off debt added
+
+`/anatomy` and `/shop` now assert **fully lined in the same weight**, **seams
+overlocked then topstitched flat**, **ties cut on the body grain** and **cut to
+order**. These are plausible-sounding specifics, which makes them the most
+dangerous kind of placeholder — if one is wrong it is a returnable-goods
+problem, not a copy problem. Logged in `CONTENT.md`.
+
+`tests/content.test.js` now derives its claim surfaces from the module's exports
+instead of a hand-written list, so a new surface cannot quietly skip the
+sign-off check, and asserts id/text/needsSignoff shape plus unique ids.

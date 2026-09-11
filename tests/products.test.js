@@ -6,13 +6,17 @@ import { SIZES } from '../src/data/sizes.js';
 const HEX = /^#[0-9a-f]{6}$/;
 
 describe('product data', () => {
-  it('has exactly eight colourways', () => {
-    expect(products).toHaveLength(8);
+  it('has exactly seven colourways', () => {
+    expect(products).toHaveLength(7);
   });
 
   it('has unique slugs', () => {
     const slugs = products.map((p) => p.slug);
-    expect(new Set(slugs).size).toBe(8);
+    expect(new Set(slugs).size).toBe(7);
+  });
+
+  it('no longer carries the retired Salt colourway', () => {
+    expect(products.map((p) => p.slug)).not.toContain('salt');
   });
 
   it('has valid lowercase hex for every colour field', () => {
@@ -30,8 +34,9 @@ describe('product data', () => {
   });
 
   it('mixes the ground at the documented ratio over paper', () => {
-    // Guards the ratio itself. Salt is the palest colourway, so its ground must
-    // stay distinguishable from bare paper; Eclipse is the darkest and must not
+    // Guards the ratio itself, at both extremes rather than at whichever
+    // colourway currently happens to be palest or darkest: a near-white ground
+    // must stay distinguishable from bare paper, and a near-black one must not
     // tint so hard that the ground stops reading as paper.
     expect(GROUND_MIX).toBe(0.12);
     expect(groundSoftFor('#000000')).toBe('#d2d1cb'); // darkest possible ground

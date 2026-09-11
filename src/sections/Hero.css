@@ -27,18 +27,20 @@
   background: linear-gradient(105deg, rgba(27, 24, 25, 0.42), rgba(27, 24, 25, 0.06) 58%);
 }
 
+/* Top padding clears the fixed nav and no more. It was `--gutter * 3` to sit
+   under the AURORA kicker; the kicker is gone, so the headline moves up into
+   the space it was holding.
+
+   The `max()` floor is not decoration. `--gutter` bottoms out at 1.25rem on a
+   phone, so a plain multiple of it gives ~27px of padding — and the nav is
+   ~61px tall and fixed, so the headline rendered straight through the AURORA
+   wordmark. The floor clears the nav at every width; above ~1100px the gutter
+   term wins and desktop is unchanged. */
 .hero__inner {
   position: relative;
-  padding: calc(var(--gutter) * 3) var(--gutter) var(--gutter);
+  padding: max(4.75rem, calc(var(--gutter) * 1.35)) var(--gutter) var(--gutter);
   color: var(--paper);
   max-width: 46rem;
-}
-
-.hero__kicker {
-  letter-spacing: var(--track-wordmark);
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  margin-bottom: clamp(1rem, 4vh, 2.5rem);
 }
 
 .hero__line {
@@ -49,20 +51,24 @@
   letter-spacing: -0.01em;
 }
 
-/* Pinyon #1 of 3. Overlaps the Archivo line and hangs right — the one
-   flourish on an otherwise severe page. */
+/* Pinyon #1 of 3. Hangs right — the one flourish on an otherwise severe page.
+   It used to sit at `margin-top: -0.18em` and overlap the Archivo line, but
+   Pinyon's ascenders ran into KISSED's baseline and the two read as a collision
+   rather than as an overlap. A small positive margin separates them; the
+   line-height below 1 keeps the pair tight. */
 .hero__script {
   font-family: var(--font-display);
   font-size: clamp(3.2rem, 12vw, 9rem);
-  line-height: 0.8;
+  line-height: 0.9;
   text-transform: none;
   letter-spacing: 0;
   display: block;
-  margin-top: -0.18em;
+  margin-top: 0.08em;
   margin-left: clamp(2rem, 18vw, 14rem);
 }
 
-.hero__standfirst { margin-top: clamp(1.5rem, 5vh, 3rem); max-width: 28ch; }
+/* Mobile only — see the note in Hero.jsx. */
+.hero__standfirst { display: none; margin-top: 2rem; max-width: 28ch; }
 
 .hero__cta {
   display: inline-block;
@@ -73,11 +79,5 @@
 
 @media (max-width: 640px) {
   .hero__script { margin-left: 0; }
-}
-
-/* On mobile the fixed nav wordmark sits directly above this kicker, so the
-   word AURORA renders twice, stacked. Drop the kicker at that width — the nav
-   already establishes the brand. */
-@media (max-width: 640px) {
-  .hero__kicker { display: none; }
+  .hero__standfirst { display: block; }
 }

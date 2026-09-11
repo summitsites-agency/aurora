@@ -78,8 +78,14 @@ export default function Product() {
             <SizeSelector value={size} onChange={(s) => { setSize(s); setHint(''); }} accent={product.hex} />
           </div>
 
+          {/* Sweep fill, ported from the Summit rebrand's AccentButton. The
+              button is already ink-on-paper, so it inverts the other way:
+              paper rises from the bottom edge and the label darkens to ink.
+              Both layers must share a duration and a curve, or the text
+              changes colour before the fill arrives underneath it. */}
           <button type="button" className="pdp__add u-label" onClick={addToBag}>
-            {detail.addToBag}
+            <span className="pdp__addfill" aria-hidden="true" />
+            <span className="pdp__addlabel">{detail.addToBag}</span>
           </button>
           {/* aria-live so the "choose a size" hint is announced, not just shown. */}
           <p className="pdp__hint" role="status" aria-live="polite">{hint}</p>

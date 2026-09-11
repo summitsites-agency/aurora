@@ -4,6 +4,7 @@ import { existsSync } from 'node:fs';
 import { buildProducts } from './media/knockout.mjs';
 import { buildFrames } from './media/frames.mjs';
 import { buildPhotos } from './media/photos.mjs';
+import { buildLogo } from './media/logo.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const src = resolve(root, 'media-src');
@@ -18,4 +19,5 @@ console.log('AURORA media pipeline');
 buildProducts(src, resolve(root, 'public/images/products'));
 buildPhotos(src, resolve(root, 'public/images/photo'));
 buildFrames(resolve(src, 'expand.mp4'), resolve(root, 'public/frames'));
+buildLogo(src, resolve(root, 'public'));
 console.log('done.');

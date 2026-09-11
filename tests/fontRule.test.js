@@ -4,21 +4,27 @@ import { join } from 'node:path';
 
 const DIRS = ['src/routes', 'src/sections', 'src/components', 'src/styles'];
 
-/** Pinyon Script is homepage-only. Exactly these files may reference the
- *  display-font token — plus tokens.css, which declares it. */
+/** Pinyon Script is rationed. Exactly these files may reference the
+ *  display-font token — plus tokens.css, which declares it.
+ *
+ *  This was "homepage-only" until 2026-09-11, when the client moved the
+ *  Closing line ("Yours for a very long time") into the global footer. That
+ *  puts one Pinyon on every page by design, so the rule this guards is now
+ *  "Pinyon appears in exactly these three places", not "Pinyon is
+ *  homepage-only". The count is still what matters — the scarcity is the
+ *  showcase. */
 const ALLOWED = new Set([
   'src/styles/tokens.css',
-  // The three homepage sections that carry Pinyon, and their own stylesheets.
-  // A section's .css file is part of that section — excluding it only forces
-  // font-family into inline styles, which is worse architecture for the same
-  // amount of Pinyon. The rule being protected is "Pinyon appears on the
-  // homepage and nowhere else", not "Pinyon may not be set in CSS".
+  // A component's .css file is part of that component — excluding it only
+  // forces font-family into inline styles, which is worse architecture for
+  // the same amount of Pinyon.
   'src/sections/Hero.jsx',
   'src/sections/Hero.css',
   'src/sections/Editorial.jsx',
   'src/sections/Editorial.css',
-  'src/sections/Closing.jsx',
-  'src/sections/Closing.css',
+  // Global: the only Pinyon that leaves the homepage.
+  'src/components/Footer.jsx',
+  'src/components/Footer.css',
 ]);
 
 const walk = (dir) => {

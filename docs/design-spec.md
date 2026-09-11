@@ -101,21 +101,38 @@ wine-crimson. The names above describe what the fabric actually looks like.
 
 - **Archivo** variable, weights 200–700. Wordmark, nav, headings, body, UI,
   every page.
-- **Pinyon Script** 400. **Homepage only.** Exactly three appearances:
-  1. Hero — `Collection`, overlapping the Archivo headline
-  2. Mid-page editorial pull-quote
-  3. Closing line above the shop CTA
+- **Pinyon Script** 400. **Exactly three appearances:**
+  1. Hero — `Collection`, beneath the Archivo headline (homepage only)
+  2. Editorial band pull-quote — `Made for the water` (**global**)
+  3. Footer closing line — `Yours for a very long time` (**global**)
 
-Zero Pinyon on `/shop`, `/shop/:slug`, `/craft`, `/journal`, `/contact`,
-`/checkout`. The scarcity is the showcase.
+> **Changed 2026-09-11, twice.** This rule was "homepage only, exactly three".
+> First the Closing section's line moved into the footer; then the editorial
+> band moved out of the homepage into the global furniture above the footer.
+> Two of the three appearances are now site-wide, so **every page carries two
+> Pinyon lines and the homepage carries three**.
+>
+> The constraint that survives is the **count of distinct usages**, not their
+> location. "Zero Pinyon on `/shop`, `/craft`, `/checkout`" no longer holds.
+> Worth a decision before launch: the scarcity argument that justified this
+> face is materially weaker than when it was written.
+>
+> Hero #1 also no longer overlaps the Archivo line — Pinyon's ascenders hit
+> KISSED's baseline and read as a collision. It sits at `margin-top: 0.08em`
+> with `line-height: 0.9`.
 
-A Vitest assertion guards it. The `--font-display` token may be referenced by
-**exactly three files** — `sections/Hero`, `sections/Editorial`,
-`sections/Closing` — plus its own declaration in `styles/tokens.css`. The test
-scans every file under `src/routes/`, `src/sections/`, `src/components/` and
-`src/styles/`, and fails on any other match. Naming the allowed files rather
-than the allowed directory is deliberate: `Home` renders from `src/sections/`,
-so a directory-level rule would let Pinyon leak into shared sections.
+A Vitest assertion guards it (`tests/fontRule.test.js`). The `--font-display`
+token may be referenced by **exactly three components** — `sections/Hero`,
+`sections/Editorial`, `components/Footer` — plus its own declaration in
+`styles/tokens.css`. The test scans every file under `src/routes/`,
+`src/sections/`, `src/components/` and `src/styles/`, and fails on any other
+match. Naming the allowed files rather than the allowed directory is
+deliberate: `Home` renders from `src/sections/`, so a directory-level rule
+would let Pinyon leak into shared sections.
+
+The footer sets it at `clamp(1.5rem, 3vw, 2.1rem)`, not the Closing section's
+`clamp(2.6rem, 9vw, 7rem)`. A 7rem line in a global footer makes the footer
+taller than most of the content above it.
 
 Both self-hosted as woff2 in `public/fonts/`, `font-display: swap`, preloaded.
 

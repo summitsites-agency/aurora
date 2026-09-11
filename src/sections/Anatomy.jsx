@@ -4,7 +4,7 @@ import { useGsapScope } from '../motion/useGsapScope.js';
 import { FRAME_COUNT, FRAME_W, FRAME_H, frameUrl, loadFrames, EAGER_COUNT } from '../motion/frames.js';
 import { useIsDesktop } from '../lib/useMediaQuery.js';
 import { useReducedMotion } from '../lib/useReducedMotion.js';
-import { home } from '../data/content.js';
+import { anatomy } from '../data/content.js';
 import './Anatomy.css';
 
 const PIN_SVH = 400;
@@ -32,17 +32,27 @@ export default function Anatomy() {
 /** Mobile and reduced-motion: three key frames as plain images. Deliberately a
  *  separate component so the 192 frames are never requested — a CSS
  *  display:none would still download them. */
+/** Mobile and reduced-motion: the FIRST and LAST key frames, and their two
+ *  steps. The middle pair was cut — on a phone the three stack into a column
+ *  and frame 96 is a barely-different halfway pose, so it read as the same
+ *  photograph twice with different words under it. First and last are the two
+ *  that actually show the garment coming apart. */
+const STATIC_STEPS = [
+  { frame: 1, step: 0 },
+  { frame: 192, step: 2 },
+];
+
 function AnatomyStatic() {
   return (
     <section className="anatomy">
       <div className="anatomy__static">
-        {[1, 96, 192].map((n, i) => (
-          <figure key={n}>
-            <img src={frameUrl(n)} alt="" width={FRAME_W} height={FRAME_H} loading="lazy" />
+        {STATIC_STEPS.map(({ frame, step }) => (
+          <figure key={frame}>
+            <img src={frameUrl(frame)} alt="" width={FRAME_W} height={FRAME_H} loading="lazy" />
             <figcaption>
-              <strong>{home.anatomy.claims[i].title}</strong>
+              <strong>{anatomy.steps[step].title}</strong>
               <br />
-              {home.anatomy.claims[i].body}
+              {anatomy.steps[step].body}
             </figcaption>
           </figure>
         ))}
@@ -55,6 +65,14 @@ function AnatomyCanvas() {
   const canvasRef = useRef(null);
   const imagesRef = useRef(null);
   const lastFrame = useRef(-1);
+
+  // Paint frame 0 as soon as it decodes, rather than waiting for the first
+  // scroll. The canvas only ever drew from ScrollTrigger's onUpdate, which does
+  // not fire until the scroll position changes — so landing on /anatomy showed
+  // an empty white stage until you moved, which looked broken rather than
+  // unstarted. `drawRef` is what lets the load callback reach the draw function
+  // declared below it.
+  const drawRef = useRef(null);
 
   useEffect(() => {
     const { images, cancel } = loadFrames(() => {
@@ -69,9 +87,27 @@ function AnatomyCanvas() {
       // ScrollTrigger re-measure now the images have changed layout height.
       lastFrame.current = -1;
       ScrollTrigger.refresh();
+      drawRef.current?.(0);
     });
     imagesRef.current = images;
-    return cancel;
+
+    // The eager callback only fires once EAGER_COUNT (16) frames have decoded,
+    // which is too long to leave the stage white. `loadFrames` assigns
+    // images[0] synchronously, so the first frame can be painted the moment it
+    // alone is ready.
+    const first = images[0];
+    const paintFirst = () => { lastFrame.current = -1; drawRef.current?.(0); };
+    // Deferred, not called inline. This effect is declared above the one that
+    // populates `drawRef`, and effects run synchronously in declaration order —
+    // so on a cache hit the inline call would land while `drawRef` is still
+    // null and silently paint nothing. A microtask runs after the whole commit.
+    if (first?.complete) queueMicrotask(paintFirst);
+    else first?.addEventListener('load', paintFirst, { once: true });
+
+    return () => {
+      first?.removeEventListener('load', paintFirst);
+      cancel();
+    };
   }, []);
 
   const draw = (index) => {
@@ -102,6 +138,11 @@ function AnatomyCanvas() {
     const dw = FRAME_W * scale, dh = FRAME_H * scale;
     ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
   };
+
+  // Effect, not a bare assignment in the body: mutating a ref during render is
+  // a side effect, and this runs early enough either way — the load callbacks
+  // above are all asynchronous.
+  useEffect(() => { drawRef.current = draw; });
 
   const scope = useGsapScope((el) => {
     const stage = el.querySelector('.anatomy__stage');
@@ -134,17 +175,19 @@ function AnatomyCanvas() {
     });
   }, []);
 
+  // The stage used to print `anatomy.label` as visible text. Now that this
+  // lives on its own page, the page head already shows it, and the two
+  // rendered one above the other in the same viewport. aria-label carries the
+  // accessible name instead, so nothing is lost to a screen reader.
   return (
-    <section className="anatomy" ref={scope} aria-labelledby="anatomy-label">
+    <section className="anatomy" ref={scope} aria-label={anatomy.label}>
       <div className="anatomy__stage">
-        <p className="anatomy__label u-label" id="anatomy-label">{home.anatomy.label}</p>
-
         <canvas className="anatomy__canvas" ref={canvasRef} aria-hidden="true" />
 
         {/* Copy lives in the DOM as real text, never painted into the canvas,
             so it is selectable and reachable by a screen reader. */}
         <div className="anatomy__copy">
-          {home.anatomy.claims.map((c) => (
+          {anatomy.steps.map((c) => (
             <div className="anatomy__claim" key={c.title}>
               <h3>{c.title}</h3>
               <p>{c.body}</p>

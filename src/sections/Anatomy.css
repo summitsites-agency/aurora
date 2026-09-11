@@ -45,17 +45,11 @@
 
 .anatomy__claim p { color: var(--ink-soft); max-width: 32ch; }
 
-.anatomy__label {
-  position: absolute;
-  top: clamp(1.5rem, 5vh, 3rem);
-  left: var(--gutter);
-  color: var(--ink-soft);
-}
-
-/* Fallback: three key frames, no canvas, no 192-file download. */
+/* Fallback: two key frames, no canvas, no 192-file download. See STATIC_STEPS
+   in Anatomy.jsx for why the middle one was dropped. */
 .anatomy__static {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--gutter);
   padding: calc(var(--gutter) * 2) var(--gutter);
 }

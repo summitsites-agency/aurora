@@ -1,0 +1,17 @@
+.nf {
+  max-width: var(--measure);
+  padding: calc(var(--gutter) * 6) var(--gutter) calc(var(--gutter) * 8);
+}
+.nf__title {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 200;
+  line-height: 1.02;
+}
+.nf__body { margin-top: 1rem; color: var(--ink-soft); }
+.nf__body a { border-bottom: 1px solid var(--line); }
+.nf__cta {
+  display: inline-block;
+  margin-top: 2rem;
+  border-bottom: 1px solid currentColor;
+}

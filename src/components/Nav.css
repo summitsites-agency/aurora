@@ -27,6 +27,46 @@
 .nav__links { display: flex; gap: 1.5rem; align-items: center; }
 .nav__compact { display: none; gap: 1.1rem; align-items: center; }
 
+/* Rule wipes in from the left on hover, ported from the Summit rebrand's nav.
+   A pseudo-element rather than border-bottom, because a border cannot be
+   animated from one edge — only faded. `scaleX` on a 1px bar composites on the
+   GPU; animating `width` would lay out the nav on every frame.
+
+   The current page keeps its rule drawn. NavLink sets .active for that, so the
+   state is read off the router rather than tracked separately. */
+.nav__links--wide a,
+.nav__links--wide button {
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+
+.nav__links--wide a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-hop);
+}
+
+.nav__links--wide a:hover::after,
+.nav__links--wide a:focus-visible::after,
+.nav__links--wide a.active::after { transform: scaleX(1); }
+
+/* The active page's rule is already drawn, so hovering it would be a no-op.
+   Wipe it out from the right instead, which reads as acknowledging the hover
+   without pretending you are going somewhere new. */
+.nav__links--wide a.active:hover::after {
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__links--wide a::after { transition: none; }
+}
+
 /* Four labels plus the bag stop fitting beside the wordmark here. Below this
    the links move into a sheet; the bag stays in the bar because reaching it
    should never cost two taps. */

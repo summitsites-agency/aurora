@@ -1,5 +1,0 @@
-.closing { padding: calc(var(--gutter) * 4) var(--gutter); text-align: center; }
-/* Pinyon #3 of 3 — the last one on the site. */
-.closing__script {
-  font-family: var(--font-display); font-size: clamp(2.6rem, 9vw, 7rem); line-height: 0.95; }
-.closing__cta { display: inline-block; margin-top: 2rem; border-bottom: 1px solid currentColor; padding-bottom: 0.25rem; }

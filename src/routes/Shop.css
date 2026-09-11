@@ -5,6 +5,20 @@
 .shop__body { margin-top: 1rem; color: var(--ink-soft); max-width: 44ch; }
 .shop__count { margin-top: 1.5rem; }
 
+/* Sits between the head and the grid. Rules on top rather than a boxed panel:
+   the page has no other chrome and a card here would be the only one. */
+.shop__notes {
+  margin: 0 0 calc(var(--gutter) * 2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+}
+@media (max-width: 767px) { .shop__notes { grid-template-columns: 1fr; gap: 1.25rem; } }
+
+.shop__note-row { border-top: 1px solid var(--line); padding-top: 0.85rem; }
+.shop__note-term { color: var(--ink); }
+.shop__note-detail { margin: 0.5rem 0 0; color: var(--ink-soft); max-width: 34ch; }
+
 .shop__grid {
   list-style: none; padding: 0; margin: 0;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter);

@@ -1,5 +1,5 @@
 import Parallax from '../motion/Parallax.jsx';
-import { home } from '../data/content.js';
+import { editorial } from '../data/content.js';
 import './Editorial.css';
 
 export default function Editorial() {
@@ -18,8 +18,8 @@ export default function Editorial() {
       <figure className="editorial__quote">
         {/* fontFamily inline, not in Editorial.css — see the comment on
             .editorial__script in that file. */}
-        <p className="editorial__script">{home.editorial.script}</p>
-        <figcaption className="editorial__body u-label">{home.editorial.body}</figcaption>
+        <p className="editorial__script">{editorial.script}</p>
+        <figcaption className="editorial__body u-label">{editorial.body}</figcaption>
       </figure>
     </section>
   );

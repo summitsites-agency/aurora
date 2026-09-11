@@ -20,7 +20,7 @@ export default function Checkout() {
 
       {empty ? (
         <p className="co__empty">
-          Your bag is empty. <Link to="/shop" className="u-label">View the eight</Link>
+          Your bag is empty. <Link to="/shop" className="u-label">View all</Link>
         </p>
       ) : (
         <div className="co__grid">

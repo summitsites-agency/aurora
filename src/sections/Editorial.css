@@ -1,4 +1,22 @@
 .editorial { position: relative; height: 90svh; min-height: 30rem; overflow: hidden; }
+
+/* `.editorial__media` had NO rule at all, which is the whole mobile bug.
+   Parallax renders a plain div, so the media sat in normal flow at auto height
+   — and `.editorial img { height: 100% }` against an auto-height parent
+   computes to `auto`, so the image fell back to its intrinsic 2400x1340 ratio.
+   At 1440px wide that is 804px against a 810px section, so desktop looked
+   correct by coincidence. At 390px it is 218px in a 760px section, leaving two
+   thirds of the band as empty wash.
+
+   Absolute and oversized: 130% tall, inset equally top and bottom. The parallax
+   travels the image by ±8% of its own height (speed -16), so anything under
+   116% exposes an edge at one end of the scroll. */
+.editorial__media {
+  position: absolute;
+  inset: -15% 0;
+  height: 130%;
+}
+
 .editorial img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
 .editorial__wash { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(27,24,25,.38), transparent 55%); }
 .editorial__quote {
@@ -9,3 +27,13 @@
 .editorial__script {
   font-family: var(--font-display); font-size: clamp(2.4rem, 8vw, 6rem); line-height: 1; }
 .editorial__body { margin-top: 1rem; }
+
+/* Shorter on phones. This band renders above the footer on EVERY route now, so
+   at 90svh it was most of a screen of furniture between the content and the
+   footer on a device that already scrolls more. */
+@media (max-width: 640px) {
+  .editorial { height: 58svh; min-height: 22rem; }
+  .editorial__quote { bottom: clamp(1.5rem, 5vh, 2.5rem); }
+  .editorial__script { font-size: clamp(2rem, 10vw, 2.75rem); }
+  .editorial__body { margin-top: 0.6rem; font-size: 0.7rem; }
+}

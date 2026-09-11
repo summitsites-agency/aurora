@@ -4,7 +4,7 @@ const WORDS = [
   'Handmade in small batches',
   'Italian fabric',
   'Made to order',
-  'One silhouette, eight shades',
+  'One silhouette, seven shades',
 ];
 
 export default function MarqueeRail({ side = 'left' }) {

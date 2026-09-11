@@ -1,0 +1,63 @@
+.coll { padding: calc(var(--gutter) * 3) var(--gutter); }
+.coll__head { max-width: var(--measure); margin-bottom: calc(var(--gutter) * 2); }
+.coll__title { font-size: clamp(1.8rem, 4.5vw, 3.4rem); font-weight: 200; line-height: 1.05; }
+.coll__body { margin-top: 1rem; color: var(--ink-soft); max-width: 42ch; }
+
+.coll__grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+@media (max-width: 1024px) { .coll__grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* One card on phones. Seven stacked full-width plates was most of the
+   homepage's scroll depth for a section whose job is to say "there are
+   several, go and look". The rest are display:none rather than unrendered so
+   the markup stays one list — and they carry loading="lazy", so a hidden card
+   never fetches its image. `.coll__more` gives the survivors a way out. */
+@media (max-width: 560px) {
+  .coll__grid { grid-template-columns: 1fr; }
+  .coll__card:nth-child(n + 2) { display: none; }
+}
+
+.coll__more { display: none; }
+@media (max-width: 560px) {
+  .coll__more {
+    display: inline-block;
+    margin-top: var(--gutter);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.2rem;
+  }
+}
+
+.coll__card { position: relative; }
+
+/* The plate is the blend's safety net. If any ancestor ever gains a transform
+   and isolates the multiply, the image composites against THIS instead of
+   against nothing, so the worst case is a slightly-wrong tint rather than a
+   hard white box. Squared off deliberately: JPEG noise leaves knockout corners
+   a shade under 255 and a radius would clip that into visible arcs. */
+.coll__plate {
+  display: block;
+  background: var(--ground-soft, var(--paper));
+  border-radius: 0;
+}
+
+.coll__img {
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+  transition: transform var(--dur-base) var(--ease-glide);
+}
+
+.coll__card:hover .coll__img,
+.coll__card:focus-within .coll__img { transform: translateY(-6px) scale(1.02); }
+
+.coll__meta { display: flex; justify-content: space-between; margin-top: 0.9rem; }
+.coll__swatch {
+  width: 0.9rem; height: 0.9rem; border-radius: 50%;
+  background: linear-gradient(140deg, var(--sw-light), var(--sw));
+}

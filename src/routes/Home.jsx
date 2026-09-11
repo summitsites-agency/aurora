@@ -1,9 +1,6 @@
 import Hero from '../sections/Hero.jsx';
-import Anatomy from '../sections/Anatomy.jsx';
-import TheEight from '../sections/TheEight.jsx';
-import Editorial from '../sections/Editorial.jsx';
-import JournalStrip from '../sections/JournalStrip.jsx';
-import Closing from '../sections/Closing.jsx';
+import Journal from '../sections/Journal.jsx';
+import TheCollection from '../sections/TheCollection.jsx';
 import { useDocumentTitle } from '../lib/useDocumentTitle.js';
 
 export default function Home() {
@@ -13,12 +10,11 @@ export default function Home() {
     <main>
       {/* The page's only <h1> lives in Hero. PageTransition focuses it on
           navigation so screen readers announce the page. */}
+      {/* Editorial used to close this page. It is now rendered globally in
+          App.jsx, directly above the footer, so it appears on every route. */}
       <Hero />
-      <Anatomy />
-      <TheEight />
-      <Editorial />
-      <JournalStrip />
-      <Closing />
+      <Journal />
+      <TheCollection />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { gsap } from '../motion/gsap.js';
 import { useGsapScope } from '../motion/useGsapScope.js';
 import { home } from '../data/content.js';
 import MarqueeRail from '../motion/MarqueeRail.jsx';
+import Magnetic from '../motion/Magnetic.jsx';
 import './Hero.css';
 
 export default function Hero() {
@@ -50,15 +51,24 @@ export default function Hero() {
       <div className="hero__scrim" />
 
       <div className="hero__inner">
-        <p className="hero__kicker" data-hero-in>{home.hero.kicker}</p>
         <h1 className="hero__line" data-hero-in>
           {home.hero.line1}
           {/* fontFamily inline, not in Hero.css — see the comment on
               .hero__script in that file. */}
           <span className="hero__script">{home.hero.script}</span>
         </h1>
+        {/* `data-hero-in` stays on the Link, not on the Magnetic wrapper. The
+            intro tween writes yPercent/opacity and Magnetic writes x/y — on one
+            element those share a transform and fight for the 1.1s the intro
+            runs. On separate elements they compose. */}
+        <Magnetic>
+          <Link to="/shop" className="hero__cta u-label" data-hero-in>{home.hero.cta}</Link>
+        </Magnetic>
+        {/* Below the CTA in the DOM, and hidden above 640px. The standfirst was
+            cut from the desktop hero but kept on mobile, where the headline
+            alone leaves the screen empty — so it reads after the CTA rather
+            than between the headline and it. */}
         <p className="hero__standfirst" data-hero-in>{home.hero.standfirst}</p>
-        <Link to="/shop" className="hero__cta u-label" data-hero-in>{home.hero.cta}</Link>
       </div>
 
       <MarqueeRail side="left" />

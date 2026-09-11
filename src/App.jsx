@@ -7,15 +7,15 @@ import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import PageTransition from './components/PageTransition.jsx';
 import Preloader from './motion/Preloader.jsx';
-import Cursor from './motion/Cursor.jsx';
+import Editorial from './sections/Editorial.jsx';
 
 import Home from './routes/Home.jsx';
 import Shop from './routes/Shop.jsx';
 import Product from './routes/Product.jsx';
 import Craft from './routes/Craft.jsx';
-import Journal from './routes/Journal.jsx';
-import Contact from './routes/Contact.jsx';
+import Anatomy from './routes/Anatomy.jsx';
 import Checkout from './routes/Checkout.jsx';
+import NotFound from './routes/NotFound.jsx';
 
 export default function App() {
   return (
@@ -24,7 +24,6 @@ export default function App() {
         <SmoothScroll>
           <GroundProvider>
             <Preloader />
-            <Cursor />
             <Nav />
             <CartDrawer />
             <PageTransition>
@@ -33,11 +32,15 @@ export default function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/shop/:slug" element={<Product />} />
                 <Route path="/craft" element={<Craft />} />
-                <Route path="/journal" element={<Journal />} />
-                <Route path="/contact" element={<Contact />} />
+                <Route path="/anatomy" element={<Anatomy />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </PageTransition>
+            {/* Outside PageTransition, so it does not re-enter on every route
+                change — it is a fixed part of the page furniture now, like the
+                footer, not part of the content being swapped. */}
+            <Editorial />
             <Footer />
           </GroundProvider>
         </SmoothScroll>

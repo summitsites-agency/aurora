@@ -1,0 +1,3 @@
+/* Both layers must be inline-block or a transform on them is a no-op. */
+.magnetic,
+.magnetic__label { display: inline-block; }
