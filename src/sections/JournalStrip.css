@@ -1,0 +1,8 @@
+.jstrip { padding: calc(var(--gutter) * 3) var(--gutter); }
+.jstrip__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: var(--gutter); }
+@media (max-width: 760px) { .jstrip__grid { grid-template-columns: 1fr; } }
+/* All twelve photographs are landscape 2400x1340. No portrait crop exists, so
+   these tiles are 4:3 and never taller than wide. */
+.jstrip__grid figure { margin: 0; }
+.jstrip__grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.jstrip__grid figure:nth-child(2) { margin-top: clamp(1rem, 6vw, 4rem); }
