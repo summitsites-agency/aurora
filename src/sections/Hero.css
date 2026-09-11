@@ -74,3 +74,10 @@
 @media (max-width: 640px) {
   .hero__script { margin-left: 0; }
 }
+
+/* On mobile the fixed nav wordmark sits directly above this kicker, so the
+   word AURORA renders twice, stacked. Drop the kicker at that width — the nav
+   already establishes the brand. */
+@media (max-width: 640px) {
+  .hero__kicker { display: none; }
+}

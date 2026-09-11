@@ -4,18 +4,66 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 1.25rem var(--gutter);
   z-index: 60;
-  mix-blend-mode: normal;
-  transition: padding var(--dur-base) var(--ease-glide);
+  transition: padding var(--dur-base) var(--ease-glide),
+              background-color var(--dur-base) var(--ease-glide);
 }
-.nav[data-shrunk='true'] { padding-block: 0.7rem; background: var(--paper); border-bottom: 1px solid var(--line); }
+.nav[data-shrunk='true'] {
+  padding-block: 0.7rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
 
 .nav__mark {
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: var(--track-wordmark);
   text-transform: uppercase;
+  white-space: nowrap;
 }
-.nav__links { display: flex; gap: 1.5rem; }
-@media (max-width: 640px) { .nav__links { gap: 0.9rem; } }
+
+.nav__links { display: flex; gap: 1.5rem; align-items: center; }
+.nav__compact { display: none; gap: 1.1rem; align-items: center; }
+
+/* Four labels plus the bag stop fitting beside the wordmark here. Below this
+   the links move into a sheet; the bag stays in the bar because reaching it
+   should never cost two taps. */
+@media (max-width: 860px) {
+  .nav__links--wide { display: none; }
+  .nav__compact { display: flex; }
+}
+
+/* The mobile menu sheet. Not a wrapper around page content — it is a sibling
+   of <nav>, so it cannot create a containing block over the page and isolate
+   the product blends. */
+.nav__sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-glide);
+}
+.nav__sheet[data-open='true'] { opacity: 1; pointer-events: auto; }
+
+.nav__sheet ul { list-style: none; margin: 0; padding: 0; text-align: center; }
+.nav__sheet li { margin: 1.1rem 0; }
+.nav__sheet a {
+  font-size: clamp(1.75rem, 8vw, 2.75rem);
+  font-weight: 200;
+}
+
+@media (min-width: 861px) {
+  /* Never show the sheet on desktop, even if state says open — a viewport
+     resize while it is open would otherwise leave a full-screen overlay. */
+  .nav__sheet { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav, .nav__sheet { transition: none; }
+}
