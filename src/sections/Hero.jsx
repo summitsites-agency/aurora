@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from '../motion/gsap.js';
 import { useGsapScope } from '../motion/useGsapScope.js';
 import { home } from '../data/content.js';
+import MarqueeRail from '../motion/MarqueeRail.jsx';
 import './Hero.css';
 
 export default function Hero() {
@@ -59,6 +60,9 @@ export default function Hero() {
         <p className="hero__standfirst" data-hero-in>{home.hero.standfirst}</p>
         <Link to="/shop" className="hero__cta u-label" data-hero-in>{home.hero.cta}</Link>
       </div>
+
+      <MarqueeRail side="left" />
+      <MarqueeRail side="right" />
     </section>
   );
 }

@@ -6,6 +6,8 @@ import CartDrawer from './cart/CartDrawer.jsx';
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import PageTransition from './components/PageTransition.jsx';
+import Preloader from './motion/Preloader.jsx';
+import Cursor from './motion/Cursor.jsx';
 
 import Home from './routes/Home.jsx';
 import Shop from './routes/Shop.jsx';
@@ -21,6 +23,8 @@ export default function App() {
       <CartProvider>
         <SmoothScroll>
           <GroundProvider>
+            <Preloader />
+            <Cursor />
             <Nav />
             <CartDrawer />
             <PageTransition>
