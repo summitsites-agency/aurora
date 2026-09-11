@@ -1,0 +1,40 @@
+.pdp { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 3); }
+
+.pdp__top {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: calc(var(--gutter) * 2);
+  align-items: start;
+}
+@media (max-width: 900px) { .pdp__top { grid-template-columns: 1fr; } }
+
+/* groundSoft, never hex. A multiply blend over a saturated ground swallows the
+   garment — Ember's #8c1b26 would leave nothing readable. */
+.pdp__plate { display: block; border-radius: 0; }
+.pdp__img { width: 100%; height: auto; mix-blend-mode: multiply; }
+
+.pdp__name { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 200; line-height: 1.02; }
+.pdp__price { margin-top: 0.75rem; font-size: 1.25rem; }
+.pdp__note { margin-top: 1.25rem; color: var(--ink-soft); max-width: 40ch; }
+
+.pdp__field { margin-top: 2rem; }
+.pdp__fieldhead { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
+
+.pdp__add {
+  width: 100%;
+  margin-top: 1.75rem;
+  padding: 1.05rem 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  transition: opacity var(--dur-fast) var(--ease-glide);
+}
+.pdp__add:hover { opacity: 0.86; }
+.pdp__add:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.pdp__hint { margin-top: 0.75rem; color: var(--ink-soft); min-height: 1.4em; }
+.pdp__panels { margin-top: 2.5rem; }
+.pdp__rail { margin-top: calc(var(--gutter) * 3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp__add { transition: none; }
+}
