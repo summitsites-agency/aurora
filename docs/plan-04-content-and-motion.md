@@ -47,7 +47,7 @@ client choice — the others get a prefix.
 
 **Files:** Create `src/lib/useDocumentTitle.js`, Test: `tests/documentTitle.test.js`, then edit all seven route files.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```js
 import { describe, it, expect } from 'vitest';
@@ -70,12 +70,12 @@ describe('titleFor', () => {
 });
 ```
 
-- [ ] **Step 2: Run it, confirm it fails**
+- [x] **Step 2: Run it, confirm it fails**
 
 Run: `cd "not uploaded/aurora" && npx vitest run tests/documentTitle.test.js`
 Expected: FAIL — cannot resolve the import.
 
-- [ ] **Step 3: Write `src/lib/useDocumentTitle.js`**
+- [x] **Step 3: Write `src/lib/useDocumentTitle.js`**
 
 ```js
 import { useEffect } from 'react';
@@ -92,7 +92,7 @@ export function useDocumentTitle(page) {
 }
 ```
 
-- [ ] **Step 4: Call it in every route**
+- [x] **Step 4: Call it in every route**
 
 Add the import and one call at the top of each component body:
 
@@ -109,11 +109,11 @@ Add the import and one call at the top of each component body:
 In `Product.jsx` the call must sit **above** the `if (!product) return` early
 return, or React will see a different hook count between renders.
 
-- [ ] **Step 5: Run the test and the suite**
+- [x] **Step 5: Run the test and the suite**
 
 Expected: PASS, 3 tests. Suite total 47.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -129,7 +129,7 @@ git commit -m "feat(aurora): give every route its own document title"
 
 **Files:** Create `public/favicon.svg`, edit `index.html`
 
-- [ ] **Step 1: Write `public/favicon.svg`**
+- [x] **Step 1: Write `public/favicon.svg`**
 
 An SVG favicon scales to every size and needs no binary tooling. The mark is the
 brand's own ink and paper.
@@ -142,7 +142,7 @@ brand's own ink and paper.
 </svg>
 ```
 
-- [ ] **Step 2: Reference it in `index.html`**
+- [x] **Step 2: Reference it in `index.html`**
 
 Add inside `<head>`, leaving the `<title>` exactly as it is:
 
@@ -153,7 +153,7 @@ Add inside `<head>`, leaving the `<title>` exactly as it is:
 **Do not change the `<title>`.** It is the bare word `AURORA` by explicit client
 decision and has been reverted twice by mistake already.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -167,7 +167,7 @@ git commit -m "feat(aurora): add an SVG favicon"
 
 **Files:** Edit `src/data/content.js`, edit `tests/content.test.js`
 
-- [ ] **Step 1: Extend the test**
+- [x] **Step 1: Extend the test**
 
 Append these cases inside the existing `describe('homepage copy')` block —
 rename it to `describe('site copy')` since it now covers more than the homepage:
@@ -204,11 +204,11 @@ rename it to `describe('site copy')` since it now covers more than the homepage:
 
 Update the import line to `import { home, craft, journal, contact } from '../src/data/content.js';`
 
-- [ ] **Step 2: Run it, confirm it fails**
+- [x] **Step 2: Run it, confirm it fails**
 
 Expected: FAIL — `craft`, `journal` and `contact` are not exported.
 
-- [ ] **Step 3: Append to `src/data/content.js`**
+- [x] **Step 3: Append to `src/data/content.js`**
 
 ```js
 /** The Craft page. Every factual assertion here is unconfirmed — see claims. */
@@ -293,11 +293,11 @@ export const contact = {
 };
 ```
 
-- [ ] **Step 4: Run the test, confirm it passes**
+- [x] **Step 4: Run the test, confirm it passes**
 
 Expected: PASS. Suite total 51.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -316,7 +316,7 @@ completely wrong for this brand.
 
 **Files:** Create `src/motion/GrainReveal.jsx` + `.css`
 
-- [ ] **Step 1: Write `GrainReveal.css`**
+- [x] **Step 1: Write `GrainReveal.css`**
 
 ```css
 .grain { position: relative; overflow: hidden; }
@@ -337,7 +337,7 @@ completely wrong for this brand.
 }
 ```
 
-- [ ] **Step 2: Write `GrainReveal.jsx`**
+- [x] **Step 2: Write `GrainReveal.jsx`**
 
 ```jsx
 import { useEffect, useRef } from 'react';
@@ -434,7 +434,7 @@ export default function GrainReveal({ src, srcSet, sizes, alt, width, height, cl
 }
 ```
 
-- [ ] **Step 3: Build and commit**
+- [x] **Step 3: Build and commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -449,7 +449,7 @@ git commit -m "feat(aurora): add the sand-grain photo reveal"
 
 **Files:** Create `src/motion/Cursor.jsx` + `.css`, `src/motion/MarqueeRail.jsx` + `.css`, `src/motion/Preloader.jsx` + `.css`
 
-- [ ] **Step 1: Write `Cursor.css`**
+- [x] **Step 1: Write `Cursor.css`**
 
 ```css
 .cursor {
@@ -472,7 +472,7 @@ git commit -m "feat(aurora): add the sand-grain photo reveal"
 .cursor[data-active='true'] .cursor__dot { width: 34px; height: 34px; }
 ```
 
-- [ ] **Step 2: Write `Cursor.jsx`**
+- [x] **Step 2: Write `Cursor.jsx`**
 
 Uses `gsap.quickTo`, which writes straight to the transform without allocating
 a tween per mousemove. The native cursor is never hidden — a custom cursor that
@@ -521,7 +521,7 @@ export default function Cursor() {
 }
 ```
 
-- [ ] **Step 3: Write `MarqueeRail.css`**
+- [x] **Step 3: Write `MarqueeRail.css`**
 
 ```css
 .rail-edge {
@@ -560,7 +560,7 @@ export default function Cursor() {
 @media (prefers-reduced-motion: reduce) { .rail-edge__track { animation: none; } }
 ```
 
-- [ ] **Step 4: Write `MarqueeRail.jsx`**
+- [x] **Step 4: Write `MarqueeRail.jsx`**
 
 ```jsx
 import './MarqueeRail.css';
@@ -586,7 +586,7 @@ export default function MarqueeRail({ side = 'left' }) {
 }
 ```
 
-- [ ] **Step 5: Write `Preloader.css`**
+- [x] **Step 5: Write `Preloader.css`**
 
 ```css
 .preloader {
@@ -609,7 +609,7 @@ export default function MarqueeRail({ side = 'left' }) {
 .preloader[data-done='true'] { pointer-events: none; }
 ```
 
-- [ ] **Step 6: Write `Preloader.jsx`**
+- [x] **Step 6: Write `Preloader.jsx`**
 
 Runs once per page load, whichever route the visitor lands on. It is mounted in
 `App.jsx` outside `<Routes>`, so it does NOT replay on client-side navigation —
@@ -649,7 +649,7 @@ export default function Preloader() {
 }
 ```
 
-- [ ] **Step 7: Build and commit**
+- [x] **Step 7: Build and commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -664,7 +664,7 @@ git commit -m "feat(aurora): add cursor, marquee rails and preloader"
 
 **Files:** Replace `src/routes/Craft.jsx`, create `src/routes/Craft.css`
 
-- [ ] **Step 1: Write `Craft.css`**
+- [x] **Step 1: Write `Craft.css`**
 
 ```css
 .craft-p { padding: calc(var(--gutter) * 4) var(--gutter) 0; }
@@ -688,7 +688,7 @@ git commit -m "feat(aurora): add cursor, marquee rails and preloader"
 .craft-p__num { display: block; margin-bottom: 0.5rem; color: var(--sand-deep); }
 ```
 
-- [ ] **Step 2: Write `Craft.jsx`**
+- [x] **Step 2: Write `Craft.jsx`**
 
 ```jsx
 import { craft } from '../data/content.js';
@@ -733,7 +733,7 @@ export default function Craft() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -747,7 +747,7 @@ git commit -m "feat(aurora): build the craft page"
 
 **Files:** Replace `src/routes/Journal.jsx`, create `src/routes/Journal.css`
 
-- [ ] **Step 1: Write `Journal.css`**
+- [x] **Step 1: Write `Journal.css`**
 
 ```css
 .jr { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 4); }
@@ -766,7 +766,7 @@ git commit -m "feat(aurora): build the craft page"
 .jr__caption { margin-top: 0.75rem; color: var(--ink-soft); }
 ```
 
-- [ ] **Step 2: Write `Journal.jsx`**
+- [x] **Step 2: Write `Journal.jsx`**
 
 ```jsx
 import { journal } from '../data/content.js';
@@ -801,7 +801,7 @@ export default function Journal() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -815,7 +815,7 @@ git commit -m "feat(aurora): build the journal page"
 
 **Files:** Replace `src/routes/Contact.jsx`, create `src/routes/Contact.css`
 
-- [ ] **Step 1: Write `Contact.css`**
+- [x] **Step 1: Write `Contact.css`**
 
 ```css
 .ct { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 4); }
@@ -842,7 +842,7 @@ git commit -m "feat(aurora): build the journal page"
 .ct__status { margin-top: 1rem; min-height: 1.4em; }
 ```
 
-- [ ] **Step 2: Write `Contact.jsx`**
+- [x] **Step 2: Write `Contact.jsx`**
 
 Posts to Formspree when `VITE_FORM_ENDPOINT` is set, and otherwise falls back to
 a `mailto:` — so the form is never a dead end in a demo or a fresh clone.
@@ -927,7 +927,7 @@ export default function Contact() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -941,7 +941,7 @@ git commit -m "feat(aurora): build the contact page"
 
 **Files:** Edit `src/App.jsx`, edit `src/sections/Hero.jsx`
 
-- [ ] **Step 1: Add the cursor and preloader to `App.jsx`**
+- [x] **Step 1: Add the cursor and preloader to `App.jsx`**
 
 Mount them as siblings of the page tree, **not** wrapping it — a wrapper with a
 transform would isolate every product blend and break ScrollTrigger pinning, as
@@ -954,7 +954,7 @@ Add the imports, then place inside `<GroundProvider>` immediately before `<Nav /
 <Cursor />
 ```
 
-- [ ] **Step 2: Add the marquee rails to `Hero.jsx`**
+- [x] **Step 2: Add the marquee rails to `Hero.jsx`**
 
 The rails belong to the homepage hero, not the whole site. Import `MarqueeRail`
 and render both sides as the last children of the `<section className="hero">`:
@@ -964,7 +964,7 @@ and render both sides as the last children of the `<section className="hero">`:
       <MarqueeRail side="right" />
 ```
 
-- [ ] **Step 3: Build, test, commit**
+- [x] **Step 3: Build, test, commit**
 
 ```bash
 cd "not uploaded/aurora"

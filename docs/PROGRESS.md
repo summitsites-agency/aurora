@@ -16,10 +16,10 @@
 | Branch | `aurora` |
 | Project root | `` |
 | Spec | `docs/design-spec.md` |
-| Plan sequence | 3 of 4 — Commerce |
-| Active plan | `docs/plan-03-commerce.md` |
-| Current task | **—** |
-| Status | `PLAN_COMPLETE` |
+| Plan sequence | 4 of 4 — Content & motion |
+| Active plan | `docs/plan-04-content-and-motion.md` |
+| Current task | **10** |
+| Status | `TASK_COMPLETE` |
 | Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
@@ -87,6 +87,23 @@ Decide between two options — **never** assume the partial work is correct:
 
 - **Verify and keep.** Only if the diff is small and obviously complete. Run
   `npm test` and `npm run build` first. If either fails, discard instead.
+
+---
+
+## Task ledger — Plan 4: Content & motion
+
+| # | Task | Impl | Spec | Qual | Commit |
+|---|------|------|------|------|--------|
+| 1 | Per-route document titles | OK | — | — | `377079a` |
+| 2 | Favicon | OK | — | — | `bb76912` |
+| 3 | Content for the three pages | OK | — | — | `c781919` |
+| 4 | The grain reveal | OK | — | — | `0986a0d` |
+| 5 | Cursor, marquee rails and preloader | OK | — | — | `0370977` |
+| 6 | The Craft page | OK | — | — | `0f2bdfd` |
+| 7 | The Journal page | OK | — | — | `3e97476` |
+| 8 | The Contact page | OK | — | — | `41eb1a8` |
+| 9 | Mount the global motion layer | OK | — | — | `b23f857` |
+| 10 | Final verification | — | — | — | — |
 
 ---
 
@@ -698,3 +715,33 @@ have to rediscover.
   `.ground` radial gradient reads only `--ground-soft`; `--ground` is set to the
   full-saturation hex and is available as an accent token. Harmless, but do not
   assume setting `--ground` changes the background.
+- **2026-09-11 — Plan 4 Tasks 1-9 complete, no deviations from the plan text.**
+  Both TDD tasks followed the protocol exactly: `tests/documentTitle.test.js`
+  was confirmed to FAIL on "Failed to resolve import" for
+  `../src/lib/useDocumentTitle.js` before the file existed, then passed 3/3
+  once written verbatim (suite 44 → 47). `tests/content.test.js`'s four new
+  cases were confirmed to FAIL (three from `craft`/`journal`/`contact` being
+  `undefined`, one from a `.toMatch()` call on `undefined`) before the three
+  new exports existed in `src/data/content.js`, then passed 7/7 once written
+  verbatim (suite 47 → 51). `useDocumentTitle(product ? product.name : 'Not
+  found')` was placed above the `if (!product) return` early return in
+  `Product.jsx` exactly as required. `index.html`'s `<title>` was touched only
+  to add the `<link rel="icon">` line immediately below it — confirmed
+  untouched by `grep -n "<title>" index.html` before and after every commit.
+  `Preloader` and `Cursor` were mounted as siblings inside `GroundProvider`,
+  immediately before `<Nav />`, never wrapping `<Routes>` — no new containing
+  block was introduced over the page tree. `MarqueeRail` was mounted as the
+  last two children of `<section className="hero">` only, not globally. Grep
+  confirms zero `--font-display` references in `src/routes/` or `src/motion/`
+  (Pinyon stays on the three allowlisted homepage sections), zero
+  `cursor: none` anywhere in `src/` (native cursor never hidden), and the only
+  `/fit` string left in the codebase is the pre-existing explanatory comment
+  in `Product.jsx` noting the route was cut — no `/fit` route, nav link, or
+  size-guide link was reintroduced. `npm run build` succeeded after every one
+  of the nine tasks (final build: no unresolved imports); `npm test` held at
+  51/51 from Task 3 onward with no regressions through Tasks 4-9. Task 10
+  (browser verification: preloader unmount timing, cursor follow/hide-native
+  check, rail seam, grain dissolve, reduced-motion pass, 390px mobile pass) is
+  explicitly out of scope for this batch per the controller's instructions and
+  is left for whoever picks up the ledger next — this is the final plan, so
+  Task 10 is the last step before the whole AURORA build is complete.
