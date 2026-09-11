@@ -18,8 +18,8 @@
 | Spec | `docs/design-spec.md` |
 | Plan sequence | 2 of 4 — Homepage |
 | Active plan | `docs/plan-02-homepage.md` |
-| Current task | **10** |
-| Status | `TASK_COMPLETE` |
+| Current task | **—** |
+| Status | `PLAN_COMPLETE` |
 | Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
@@ -103,8 +103,8 @@ Decide between two options — **never** assume the partial work is correct:
 | 7 | Hero | OK | — | — | `67c316b` |
 | 8 | The Eight | OK | — | — | `8c6c00d` |
 | 9 | Editorial / Craft / Journal / Closing | OK | — | — | `6a68eef` |
-| 10 | Compose the homepage | — | — | — | |
-| 11 | Verify in a real browser | — | — | — | |
+| 10 | Compose the homepage | OK | — | — | `f5dbc31` |
+| 11 | Verify in a real browser | OK | — | — | `f5dbc31` |
 
 ---
 
@@ -589,3 +589,27 @@ have to rediscover.
   **Lesson for future tests here:** a grep-based guard matches comments and
   documentation, so scope it to the real architectural boundary or it will push
   code into worse shapes to satisfy it.
+- **2026-09-11 — PLAN 2 COMPLETE.** Homepage verified in a real browser at
+  1440x900: hero with both fonts, Anatomy scrub pinning and disassembling the
+  garment, The Eight floating knockouts on per-colourway plates with the ground
+  tween, editorial band, CountUp stats (17 / 6h / 12), journal strip, closing.
+  38 tests, build clean.
+- **2026-09-11 — Two browser-only bugs, neither visible from a passing build.**
+  (a) `PageTransition` animated `transform: scale(.994) -> none` with fill-mode
+  `both`; the finished identity transform still created a containing block,
+  which broke `position: fixed` (ScrollTrigger's pin slid 1:1 with scroll while
+  reporting `fixed`) AND would have isolated every product's multiply blend.
+  Now opacity-only. (b) `useGsapScope(..., [ready])` rebuilt the pin when frames
+  decoded, orphaning the old pin-spacer — padding doubled to 7200px and the
+  stage was translated 3600px off-screen. Trigger is now created once and merely
+  refreshed. **Neither would ever fail a unit test or a build.**
+- **2026-09-11 — Testing note: `window.scrollTo` bypasses Lenis.** It leaves
+  ScrollTrigger un-updated and produces convincing false negatives (a blank
+  Anatomy section that is actually fine). Drive scroll with real wheel events
+  (`page.mouse.wheel`). Same class of trap as dispatching a synthetic
+  `mouseenter`, which React's delegated `mouseover` never sees.
+- **2026-09-11 — Watch on Plan 3 (PDP):** the product page sets `--ground` to
+  the full-saturation `hex`. A multiply-blended knockout on a saturated ground
+  gets heavily tinted — Ember's #8c1b26 would swallow the garment. Use
+  `groundSoft` for the region directly behind the product, and keep `hex` for
+  accents only.
