@@ -54,7 +54,7 @@ export default function Hero() {
           {home.hero.line1}
           {/* fontFamily inline, not in Hero.css — see the comment on
               .hero__script in that file. */}
-          <span className="hero__script" style={{ fontFamily: 'var(--font-display)' }}>{home.hero.script}</span>
+          <span className="hero__script">{home.hero.script}</span>
         </h1>
         <p className="hero__standfirst" data-hero-in>{home.hero.standfirst}</p>
         <Link to="/shop" className="hero__cta u-label" data-hero-in>{home.hero.cta}</Link>

@@ -577,3 +577,15 @@ have to rediscover.
   `6a68eef` (Task 9). Plan 2 Task 10 (compose `Home.jsx`) and Task 11
   (browser verification) are next and were explicitly out of scope for this
   batch.
+- **2026-09-11 — The font-rule test was too narrow; fixed the test, not the
+  code.** Batch I followed its brief correctly ("remove the usage, never relax
+  the test") and pushed `font-family: var(--font-display)` out of the section
+  stylesheets into inline JSX `style` props, then had to reword an explanatory
+  CSS *comment* because the grep-based test matched that too. Both are smells.
+  The rule being protected is "Pinyon appears on the homepage and nowhere else",
+  not "Pinyon may not be set in CSS" — and `Hero.css` is part of Hero. The
+  allowlist now includes the three sections' `.css` files, `font-family` is back
+  in CSS, the inline styles are gone and the comments say what they mean.
+  **Lesson for future tests here:** a grep-based guard matches comments and
+  documentation, so scope it to the real architectural boundary or it will push
+  code into worse shapes to satisfy it.

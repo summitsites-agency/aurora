@@ -8,9 +8,17 @@ const DIRS = ['src/routes', 'src/sections', 'src/components', 'src/styles'];
  *  display-font token — plus tokens.css, which declares it. */
 const ALLOWED = new Set([
   'src/styles/tokens.css',
+  // The three homepage sections that carry Pinyon, and their own stylesheets.
+  // A section's .css file is part of that section — excluding it only forces
+  // font-family into inline styles, which is worse architecture for the same
+  // amount of Pinyon. The rule being protected is "Pinyon appears on the
+  // homepage and nowhere else", not "Pinyon may not be set in CSS".
   'src/sections/Hero.jsx',
+  'src/sections/Hero.css',
   'src/sections/Editorial.jsx',
+  'src/sections/Editorial.css',
   'src/sections/Closing.jsx',
+  'src/sections/Closing.css',
 ]);
 
 const walk = (dir) => {

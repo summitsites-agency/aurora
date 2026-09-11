@@ -49,14 +49,10 @@
   letter-spacing: -0.01em;
 }
 
-/* Pinyon #1. Overlaps the Archivo line and hangs right — the one flourish on
-   an otherwise severe page. The display-font custom property is set inline in
-   Hero.jsx instead of here: the font-rule test allowlists that token by
-   filename, and only the three section .jsx files are listed, not their .css
-   siblings. Keeping the declaration out of this stylesheet satisfies that
-   gate without touching the test; every other rule below still applies via
-   the class. */
+/* Pinyon #1 of 3. Overlaps the Archivo line and hangs right — the one
+   flourish on an otherwise severe page. */
 .hero__script {
+  font-family: var(--font-display);
   font-size: clamp(3.2rem, 12vw, 9rem);
   line-height: 0.8;
   text-transform: none;
