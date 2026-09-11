@@ -18,8 +18,8 @@
 | Spec | `docs/design-spec.md` |
 | Plan sequence | 4 of 4 — Content & motion |
 | Active plan | `docs/plan-04-content-and-motion.md` |
-| Current task | **10** |
-| Status | `TASK_COMPLETE` |
+| Current task | **—** |
+| Status | `ALL PLANS COMPLETE` |
 | Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
@@ -745,3 +745,48 @@ have to rediscover.
   explicitly out of scope for this batch per the controller's instructions and
   is left for whoever picks up the ledger next — this is the final plan, so
   Task 10 is the last step before the whole AURORA build is complete.
+
+---
+
+## BUILD COMPLETE — 2026-09-11
+
+All four plans done. 51 tests, build clean, every route verified in a real
+browser at 1440x900 and 390x844, plus a reduced-motion pass.
+
+- **Titles** — every route distinct; homepage stays the bare `AURORA` by client
+  choice. **Favicon** 200, no more `/favicon.ico` 404. **Zero console errors.**
+- **Reduced motion** — no preloader, no cursor, static Anatomy frames, no grain
+  veils, every page fully readable. Hero opacity settles at 1 (a mid-fade
+  reading of 0.94 during testing was a transient, not a stuck animation).
+- **Mobile 390px** — zero horizontal overflow on all seven routes; Anatomy
+  requests **3** frames, not 192; edge rails hidden.
+- **`/journal`** — verified to contain no price and no colourway name. The
+  photographed suit is a tan that is not one of the eight, so a price beside it
+  would promise a match that does not exist.
+- **Grain veil** removes itself (`display: none`) once dissolved, so it stops
+  costing compositor work.
+
+### The last bug, and why it was nearly missed
+
+At 390px the nav's four labels plus the bag collided with the wordmark:
+"Contact" clipped at the viewport edge, "Bag" not rendering at all. **The
+automated horizontal-overflow check passed**, because the nav wrapped instead of
+widening the document — `scrollWidth` stayed correct. It was only visible in a
+screenshot. Fixed with a Menu sheet below 860px (bag stays in the bar), and the
+hero kicker is hidden under 640px where it rendered AURORA twice, stacked.
+
+**Lesson: numeric DOM assertions cannot see composition.** Overflow, contrast
+and blend all measured fine on pages that looked wrong. Every visual milestone
+in this build needed an actual screenshot.
+
+### Outstanding before launch
+
+1. **`CONTENT.md` — every factual claim is unconfirmed.** Price, fabric, studio
+   location, lead time, shipping rates, returns, email, social handles, model
+   releases. Nothing has client sign-off.
+2. **Stripe** — `/checkout` is an order summary with a disabled pay button. The
+   seam is one commented block in `Checkout.jsx`. When wiring it, recompute
+   prices **server-side** from the slugs; a browser-supplied total is a discount
+   button.
+3. **Real photography for the eight colourways.** The model shots are editorial
+   only because the suit in them matches none of the eight dye lots.
