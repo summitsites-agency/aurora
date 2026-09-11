@@ -38,9 +38,15 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
+  // White type only while the bar is transparent AND sitting over the hero
+  // photograph. Every other route opens on paper, so an unshrunk nav there is
+  // dark-on-light — flipping it white by shrink state alone would make the
+  // links invisible on /shop, /craft, /anatomy and /checkout.
+  const overHero = pathname === '/' && !shrunk;
+
   return (
     <>
-      <nav className="nav" data-shrunk={shrunk}>
+      <nav className="nav" data-shrunk={shrunk} data-over-hero={overHero}>
         <Link to="/" className="nav__mark">Aurora</Link>
 
         {/* Desktop: the links inline. Hidden below 860px, where the labels

@@ -7,14 +7,44 @@
   gap: 1rem;
   padding: 1.25rem var(--gutter);
   z-index: 60;
+  color: var(--ink);
   transition: padding var(--dur-base) var(--ease-glide),
-              background-color var(--dur-base) var(--ease-glide);
+              background-color var(--dur-base) var(--ease-glide),
+              color var(--dur-base) var(--ease-glide);
 }
 .nav[data-shrunk='true'] {
   padding-block: 0.7rem;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
+
+/* Over the hero photograph the bar is transparent, so the wordmark and links
+   go paper and hand back to ink when the bar takes its background. `a` and
+   `button` both inherit colour (see base.css), so one declaration carries the
+   wordmark, the links, the bag count and the hover rule's currentColor. */
+.nav[data-over-hero='true'] { color: var(--paper); }
+
+/* The hero's own scrim is a 105deg gradient that has faded to 6% by the right
+   edge — where the links are. Paper type measured 2.3:1 against the bare sand
+   there, under the 4.5:1 floor. This is a second scrim, top-down and behind
+   the bar only, so the links clear contrast across the full width. It fades
+   out with the colour change, so the shrunk bar is still flat paper. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 220%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(180deg, rgba(27, 24, 25, 0.55), rgba(27, 24, 25, 0));
+  transition: opacity var(--dur-base) var(--ease-glide);
+}
+.nav[data-over-hero='true']::before { opacity: 1; }
+
+/* The global focus ring is solid --ink, which all but disappears against the
+   scrim. Follow the bar's own colour instead. */
+.nav :focus-visible { outline-color: currentColor; }
 
 .nav__mark {
   font-size: 1.05rem;
