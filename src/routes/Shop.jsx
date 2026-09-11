@@ -3,9 +3,11 @@ import { products } from '../data/products.js';
 import { formatPrice } from '../lib/format.js';
 import { useGround } from '../ground/GroundProvider.jsx';
 import SplitReveal from '../motion/SplitReveal.jsx';
+import { useDocumentTitle } from '../lib/useDocumentTitle.js';
 import './Shop.css';
 
 export default function Shop() {
+  useDocumentTitle('Shop');
   const { setGround, resetGround } = useGround();
 
   return (

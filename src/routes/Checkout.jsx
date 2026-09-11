@@ -5,9 +5,11 @@ import { formatPrice } from '../lib/format.js';
 import { orderTotals } from '../lib/totals.js';
 import { FREE_SHIPPING_OVER_CENTS } from '../data/productDetail.js';
 import QuantityStepper from '../components/QuantityStepper.jsx';
+import { useDocumentTitle } from '../lib/useDocumentTitle.js';
 import './Checkout.css';
 
 export default function Checkout() {
+  useDocumentTitle('Your bag');
   const { cart, dispatch } = useCart();
   const { subtotalCents, shippingCents, totalCents } = orderTotals(cart);
   const empty = cart.lines.length === 0;

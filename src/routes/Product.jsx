@@ -8,6 +8,7 @@ import { useGround } from '../ground/GroundProvider.jsx';
 import SizeSelector from '../components/SizeSelector.jsx';
 import Accordion from '../components/Accordion.jsx';
 import ColourRail from '../components/ColourRail.jsx';
+import { useDocumentTitle } from '../lib/useDocumentTitle.js';
 import './Product.css';
 
 export default function Product() {
@@ -17,6 +18,10 @@ export default function Product() {
   const { setGround, resetGround } = useGround();
   const [size, setSize] = useState(null);
   const [hint, setHint] = useState('');
+
+  // Must sit above the `if (!product) return` below, or React sees a
+  // different hook count between renders (found vs. not-found product).
+  useDocumentTitle(product ? product.name : 'Not found');
 
   useEffect(() => {
     if (product) setGround(product);
