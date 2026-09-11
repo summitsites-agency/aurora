@@ -1,10 +1,29 @@
+/* OPACITY ONLY. Do not add transform, filter, perspective, will-change or
+   contain:paint to this element, however subtle.
+
+   This wrapper is an ancestor of every page, so anything here that creates a
+   containing block breaks two things at once, both silently:
+
+   1. `position: fixed` resolves against THIS element instead of the viewport,
+      so ScrollTrigger's pin stops holding — the pinned section slides with the
+      scroll at 1:1 while still reporting `position: fixed`. The Anatomy scrub
+      looked blank because of exactly this.
+   2. It isolates `mix-blend-mode`, so the product knockouts composite against
+      nothing and their pure-white backdrop reappears as a hard rectangle on
+      the tinted ground.
+
+   The original version animated `transform: scale(0.994) -> none`. Note that
+   even the finished state was harmful: `animation-fill-mode: both` keeps the
+   final value applied, and `transform: none` still computes to an identity
+   matrix, which still creates a containing block. A transform that visually
+   does nothing is still a transform. */
 .page-transition {
   animation: page-in var(--dur-base) var(--ease-glide) both;
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: scale(0.994); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

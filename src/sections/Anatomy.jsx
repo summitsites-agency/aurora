@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { gsap, ScrollTrigger } from '../motion/gsap.js';
 import { useGsapScope } from '../motion/useGsapScope.js';
 import { FRAME_COUNT, FRAME_W, FRAME_H, frameUrl, loadFrames, EAGER_COUNT } from '../motion/frames.js';
@@ -55,10 +55,21 @@ function AnatomyCanvas() {
   const canvasRef = useRef(null);
   const imagesRef = useRef(null);
   const lastFrame = useRef(-1);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const { images, cancel } = loadFrames(() => setReady(true));
+    const { images, cancel } = loadFrames(() => {
+      // Frames are decoded. Do NOT trigger a React re-render to react to this:
+      // the draw path reads imagesRef directly, and making the ScrollTrigger
+      // depend on a `ready` flag rebuilt the pin from scratch. The rebuild left
+      // the old pin-spacer behind, so the spacer's padding doubled to 2x the
+      // pin length and ScrollTrigger translated the "pinned" element 3600px
+      // down the page — off-screen, and the section looked blank.
+      //
+      // Instead: drop the repaint guard so the next update repaints, and let
+      // ScrollTrigger re-measure now the images have changed layout height.
+      lastFrame.current = -1;
+      ScrollTrigger.refresh();
+    });
     imagesRef.current = images;
     return cancel;
   }, []);
@@ -121,7 +132,7 @@ function AnatomyCanvas() {
         });
       },
     });
-  }, [ready]);
+  }, []);
 
   return (
     <section className="anatomy" ref={scope} aria-labelledby="anatomy-label">
