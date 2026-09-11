@@ -18,9 +18,9 @@
 | Spec | `docs/design-spec.md` |
 | Plan sequence | 2 of 4 — Homepage |
 | Active plan | `docs/plan-02-homepage.md` |
-| Current task | **6** |
+| Current task | **10** |
 | Status | `TASK_COMPLETE` |
-| Last updated | 2026-09-10 |
+| Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
 
@@ -99,10 +99,10 @@ Decide between two options — **never** assume the partial work is correct:
 | 3 | SplitReveal | OK | — | — | `2ae50a6` |
 | 4 | Parallax and CountUp | OK | — | — | `dd66121` |
 | 5 | Frame list + preload scheduler | OK | — | — | `4a1ad02` |
-| 6 | Anatomy pinned canvas scrub | — | — | — | |
-| 7 | Hero | — | — | — | |
-| 8 | The Eight | — | — | — | |
-| 9 | Editorial / Craft / Journal / Closing | — | — | — | |
+| 6 | Anatomy pinned canvas scrub | OK | — | — | `238d4f3` |
+| 7 | Hero | OK | — | — | `67c316b` |
+| 8 | The Eight | OK | — | — | `8c6c00d` |
+| 9 | Editorial / Craft / Journal / Closing | OK | — | — | `6a68eef` |
 | 10 | Compose the homepage | — | — | — | |
 | 11 | Verify in a real browser | — | — | — | |
 
@@ -535,3 +535,45 @@ have to rediscover.
   `vite.config.js` (`308bdbd`); Task 4 then committed unchanged (`dd66121`).
   Suite is 38. **This would have blocked every future test touching the motion
   layer**, so it is fixed once, centrally, rather than per test.
+- **2026-09-11 — Batch I (Tasks 6-9) complete, no plan-file content changed
+  except one systematic, pre-anticipated deviation (below).** Created
+  `src/sections/` and wrote all nine section components + their stylesheets
+  verbatim from `docs/plan-02-homepage.md`: `Anatomy.jsx`/`.css` (Task 6),
+  `Hero.jsx`/`.css` (Task 7), `TheEight.jsx`/`.css` (Task 8), and
+  `Editorial`/`CraftTeaser`/`JournalStrip`/`Closing` (`.jsx`+`.css` each,
+  Task 9). `npm run build` succeeded after every task; `npm test` holds at
+  **38/38** throughout (none of these files are wired into `Home.jsx` yet -
+  that's Task 10 - so the module graph and therefore `npm run build`'s module
+  count is unchanged at 77, matching the pattern from earlier batches whose
+  files were not yet referenced from the real entry point).
+
+  **Deviation, pre-authorized by the batch brief itself:** the plan's verbatim
+  CSS for `Hero.css`, `Editorial.css` and `Closing.css` each declare
+  `font-family: var(--font-display)` directly in a class rule. But
+  `tests/fontRule.test.js` (written in Plan 1, Task 18, before any
+  `src/sections/*` files existed) allowlists that custom-property token by
+  **exact filename**, and its `ALLOWED` set only lists the three `.jsx` files
+  (`Hero.jsx`, `Editorial.jsx`, `Closing.jsx`) - not their `.css` siblings.
+  Writing the CSS verbatim therefore fails the font-rule test
+  (`expected [ 'src/sections/Hero.css' ] to deeply equal []`), a real failure
+  observed by running the suite, not a hypothetical. The batch brief's own
+  "five things that break this page" section anticipated exactly this
+  outcome and gave the resolution directly: "if it fails, the display-font
+  token has leaked outside the three allowed files: remove the usage, never
+  relax the test." Applied that literally: removed the `font-family`
+  declaration from all three `.css` files and set it via an inline `style`
+  prop on the exact same element in the corresponding `.jsx` file instead
+  (which **is** allowlisted). Visual output is identical; `tests/fontRule.test.js`
+  was not touched. One second-order snag during the fix: an explanatory CSS
+  *comment* naming the token also tripped the same grep-based test, since it
+  scans raw file contents rather than parsed CSS - comments had to describe
+  the token without spelling out its literal form. Final state, confirmed by
+  `grep -rl "font-display" src/`: exactly `src/sections/Closing.jsx`,
+  `src/sections/Editorial.jsx`, `src/sections/Hero.jsx`, and
+  `src/styles/tokens.css` (the declaration site) - no `.css` section file
+  present. `TheEight`, `CraftTeaser`, `JournalStrip` and `Anatomy` never
+  referenced the token at all, so they needed no such change.
+  Commits: `238d4f3` (Task 6), `67c316b` (Task 7), `8c6c00d` (Task 8),
+  `6a68eef` (Task 9). Plan 2 Task 10 (compose `Home.jsx`) and Task 11
+  (browser verification) are next and were explicitly out of scope for this
+  batch.

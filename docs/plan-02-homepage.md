@@ -564,7 +564,7 @@ The centrepiece. Read the two rules at the top of this plan again before startin
 
 **Files:** Create `src/sections/Anatomy.jsx`, `src/sections/Anatomy.css`
 
-- [ ] **Step 1: Write `Anatomy.css`**
+- [x] **Step 1: Write `Anatomy.css`**
 
 ```css
 /* A white studio band. NOT the paper ground, and NOT blended — see the plan's
@@ -636,7 +636,7 @@ The centrepiece. Read the two rules at the top of this plan again before startin
 }
 ```
 
-- [ ] **Step 2: Write `Anatomy.jsx`**
+- [x] **Step 2: Write `Anatomy.jsx`**
 
 ```jsx
 import { useRef, useState, useEffect } from 'react';
@@ -787,12 +787,12 @@ function AnatomyCanvas() {
 }
 ```
 
-- [ ] **Step 3: Verify it builds**
+- [x] **Step 3: Verify it builds**
 
 Run: `cd "not uploaded/aurora" && npm run build`
 Expected: `✓ built in …`
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -808,7 +808,7 @@ Pinyon appearance #1 of 3.
 
 **Files:** Create `src/sections/Hero.jsx`, `src/sections/Hero.css`
 
-- [ ] **Step 1: Write `Hero.css`**
+- [x] **Step 1: Write `Hero.css`**
 
 ```css
 .hero {
@@ -889,7 +889,7 @@ Pinyon appearance #1 of 3.
 }
 ```
 
-- [ ] **Step 2: Write `Hero.jsx`**
+- [x] **Step 2: Write `Hero.jsx`**
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -956,7 +956,7 @@ export default function Hero() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -972,7 +972,7 @@ The colour-tween rail. Knockouts multiply onto the tinted ground here.
 
 **Files:** Create `src/sections/TheEight.jsx`, `src/sections/TheEight.css`
 
-- [ ] **Step 1: Write `TheEight.css`**
+- [x] **Step 1: Write `TheEight.css`**
 
 ```css
 .eight { padding: calc(var(--gutter) * 3) var(--gutter); }
@@ -1021,7 +1021,7 @@ The colour-tween rail. Knockouts multiply onto the tinted ground here.
 }
 ```
 
-- [ ] **Step 2: Write `TheEight.jsx`**
+- [x] **Step 2: Write `TheEight.jsx`**
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -1075,7 +1075,7 @@ export default function TheEight() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -1091,7 +1091,7 @@ Pinyon appearances #2 (Editorial) and #3 (Closing).
 
 **Files:** Create `src/sections/{Editorial,CraftTeaser,JournalStrip,Closing}.jsx` and matching `.css`
 
-- [ ] **Step 1: Write `Editorial.jsx` + `Editorial.css`**
+- [x] **Step 1: Write `Editorial.jsx` + `Editorial.css`**
 
 `Editorial.css`:
 ```css
@@ -1135,7 +1135,7 @@ export default function Editorial() {
 }
 ```
 
-- [ ] **Step 2: Write `CraftTeaser.jsx` + `CraftTeaser.css`**
+- [x] **Step 2: Write `CraftTeaser.jsx` + `CraftTeaser.css`**
 
 `CraftTeaser.css`:
 ```css
@@ -1173,7 +1173,7 @@ export default function CraftTeaser() {
 }
 ```
 
-- [ ] **Step 3: Write `JournalStrip.jsx` + `JournalStrip.css`**
+- [x] **Step 3: Write `JournalStrip.jsx` + `JournalStrip.css`**
 
 `JournalStrip.css`:
 ```css
@@ -1225,7 +1225,7 @@ export default function JournalStrip() {
 }
 ```
 
-- [ ] **Step 4: Write `Closing.jsx` + `Closing.css`**
+- [x] **Step 4: Write `Closing.jsx` + `Closing.css`**
 
 `Closing.css`:
 ```css
@@ -1251,7 +1251,7 @@ export default function Closing() {
 }
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd "not uploaded/aurora"
