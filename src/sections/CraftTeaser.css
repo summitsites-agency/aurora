@@ -1,5 +1,0 @@
-.craft { padding: calc(var(--gutter) * 3) var(--gutter); background: var(--paper-warm); }
-.craft__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); margin-top: calc(var(--gutter) * 1.5); }
-@media (max-width: 760px) { .craft__grid { grid-template-columns: 1fr; } }
-.craft__value { display: block; font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 200; line-height: 1; }
-.craft__caption { color: var(--ink-soft); margin-top: 0.5rem; }

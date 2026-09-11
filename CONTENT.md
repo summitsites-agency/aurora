@@ -21,7 +21,7 @@ is **placeholder until signed off**.
       `pink.jpeg` is a dusty clay-rose and `red.jpeg` is a wine-crimson.
 - [ ] Fabric composition, weight and mill or country of origin
 - [ ] Lining and construction details
-- [ ] Size range and the full measurement table
+- [ ] Size range (XS-L) and the fit notes shown on each product page
 - [ ] Care instructions
 
 ## Brand

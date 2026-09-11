@@ -7,7 +7,6 @@ const LINKS = [
   ['/shop', 'Shop'],
   ['/craft', 'The Craft'],
   ['/journal', 'Journal'],
-  ['/fit', 'Fit'],
   ['/contact', 'Contact'],
 ];
 

@@ -2,7 +2,6 @@ import Hero from '../sections/Hero.jsx';
 import Anatomy from '../sections/Anatomy.jsx';
 import TheEight from '../sections/TheEight.jsx';
 import Editorial from '../sections/Editorial.jsx';
-import CraftTeaser from '../sections/CraftTeaser.jsx';
 import JournalStrip from '../sections/JournalStrip.jsx';
 import Closing from '../sections/Closing.jsx';
 
@@ -15,7 +14,6 @@ export default function Home() {
       <Anatomy />
       <TheEight />
       <Editorial />
-      <CraftTeaser />
       <JournalStrip />
       <Closing />
     </main>

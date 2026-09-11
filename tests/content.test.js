@@ -16,10 +16,6 @@ describe('homepage copy', () => {
     }
   });
 
-  it('has three craft stats with numeric values', () => {
-    expect(home.craft.stats).toHaveLength(3);
-    for (const s of home.craft.stats) expect(typeof s.value).toBe('number');
-  });
 
   it('flags every factual claim for client sign-off', () => {
     // Anything asserting a fact about the business carries needsSignoff so it

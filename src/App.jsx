@@ -12,7 +12,6 @@ import Shop from './routes/Shop.jsx';
 import Product from './routes/Product.jsx';
 import Craft from './routes/Craft.jsx';
 import Journal from './routes/Journal.jsx';
-import Fit from './routes/Fit.jsx';
 import Contact from './routes/Contact.jsx';
 import Checkout from './routes/Checkout.jsx';
 
@@ -31,7 +30,6 @@ export default function App() {
                 <Route path="/shop/:slug" element={<Product />} />
                 <Route path="/craft" element={<Craft />} />
                 <Route path="/journal" element={<Journal />} />
-                <Route path="/fit" element={<Fit />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/checkout" element={<Checkout />} />
               </Routes>

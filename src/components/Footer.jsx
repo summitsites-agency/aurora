@@ -8,7 +8,6 @@ export default function Footer() {
         <Link to="/shop">Shop</Link>
         <Link to="/craft">The Craft</Link>
         <Link to="/journal">Journal</Link>
-        <Link to="/fit">Fit</Link>
         <Link to="/contact">Contact</Link>
       </nav>
     </footer>

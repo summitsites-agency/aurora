@@ -29,14 +29,6 @@ export const home = {
     body: 'Photographed on film at golden hour, unretouched.',
   },
 
-  craft: {
-    label: 'The craft',
-    stats: [
-      { value: 17, suffix: '', caption: 'pattern pieces per set' },
-      { value: 6,  suffix: 'h', caption: 'average time to make one' },
-      { value: 12, suffix: '', caption: 'sets in a batch' },
-    ],
-  },
 
   journal: { label: 'The journal', title: 'On the sand' },
 
@@ -50,8 +42,6 @@ export const home = {
     { id: 'pieces',   text: '17 pattern pieces per set',       needsSignoff: true },
     { id: 'maker',    text: 'one maker per set, no line',      needsSignoff: true },
     { id: 'fabric',   text: 'Italian high-recovery knit',      needsSignoff: true },
-    { id: 'hours',    text: '6h average make time',            needsSignoff: true },
-    { id: 'batch',    text: '12 sets per batch',               needsSignoff: true },
     { id: 'film',     text: 'shot on film, unretouched',       needsSignoff: true },
   ],
 };

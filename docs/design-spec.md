@@ -33,7 +33,7 @@ This is a **real client project**. Every factual claim in the copy is logged in
 | Model photos | Editorial only — never adjacent to a named colourway |
 | Checkout | Order summary only, disabled pay button, marked Stripe seam |
 | Scroll sequence | Homepage, pinned "Anatomy" section |
-| Extra pages | Size & Fit, Contact, Journal. Care & Returns → PDP accordions |
+| Extra pages | Contact, Journal. Care & Returns AND sizing → PDP accordions |
 
 ### 2.1 Rationale for the price
 
@@ -106,7 +106,7 @@ wine-crimson. The names above describe what the fabric actually looks like.
   2. Mid-page editorial pull-quote
   3. Closing line above the shop CTA
 
-Zero Pinyon on `/shop`, `/shop/:slug`, `/craft`, `/journal`, `/fit`, `/contact`,
+Zero Pinyon on `/shop`, `/shop/:slug`, `/craft`, `/journal`, `/contact`,
 `/checkout`. The scarcity is the showcase.
 
 A Vitest assertion guards it. The `--font-display` token may be referenced by
@@ -143,7 +143,6 @@ CustomEase.create("glide", "0.8, 0, 0.2, 1");   // long — grounds, parallax
 | `/shop/:slug` | Product detail ×8 |
 | `/craft` | The handmade story |
 | `/journal` | Editorial — the model photography |
-| `/fit` | Size & fit guide |
 | `/contact` | Enquiries + custom commissions |
 | `/checkout` | Order summary |
 
@@ -167,7 +166,6 @@ page transitions.
                   3 craft claims phased against frame progress
 3  THE EIGHT      knockouts on paper; hover → ground tweens to that colourway
 4  EDITORIAL      full-bleed model4 + PINYON #2 pull-quote, sand-grain reveal
-5  CRAFT TEASER   3 columns, CountUp
 6  JOURNAL STRIP  model1 / model2 / model3 staggered, parallax
 7  CLOSING        PINYON #3 + shop CTA
 8  FOOTER         sand band
@@ -238,28 +236,6 @@ no colourway is named anywhere near it.
 The four model photographs as a proper editorial spread — captions, shot notes,
 no prices, no colour names, no add-to-bag. This is where "proof and appeal"
 lives without creating a colour-match expectation.
-
-### 6.6 Fit
-
-Measurement table (bust / waist / hip, XS–L), how-to-measure diagram,
-model-height reference, between-sizes guidance.
-
-### 6.7 Contact
-
-Formspree via `VITE_FORM_ENDPOINT`, falling back to `mailto:`. Studio location,
-response time, custom-commission note.
-
-### 6.8 Checkout
-
-Order summary only, per decision. Editable quantities, live subtotal / shipping
-/ total, `Intl.NumberFormat('en-CA')` money formatting, and a disabled pay
-button with an explanatory line.
-
-**Stripe seam.** The payment block is isolated as
-`src/components/checkout/PaymentBlock.jsx` with a header comment naming the
-exact swap: replace the disabled button with Stripe's `<PaymentElement />` and
-post the cart to a `/api/checkout` handler. No keys, no server, no Stripe
-dependency in `package.json`.
 
 ---
 

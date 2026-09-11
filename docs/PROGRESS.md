@@ -613,3 +613,18 @@ have to rediscover.
   gets heavily tinted — Ember's #8c1b26 would swallow the garment. Use
   `groundSoft` for the region directly behind the product, and keep `hex` for
   accents only.
+- **2026-09-11 — Client scope change: `/fit` page cut, homepage craft stats
+  cut.** Removed `src/routes/Fit.jsx` and its route/nav/footer links, and
+  `src/sections/CraftTeaser.*`. `src/motion/CountUp.jsx` and its test went with
+  them — it had no other consumer, so keeping it would have been dead code.
+  The `craft` block and the `hours`/`batch` claims are gone from
+  `content.js`; the `pieces` claim stays because the Anatomy copy still asserts
+  "seventeen pattern pieces". Sizing guidance now lives only in the PDP
+  "Fit notes" accordion. Suite dropped 38 → 33. **Do not reintroduce a `/fit`
+  route.**
+- **2026-09-11 — Bug the client spotted in CountUp before it was removed.** It
+  rendered the number twice — a visible span plus a `u-visually-hidden` sibling
+  carrying the final value for screen readers. Visually correct, but selecting
+  or copying the text yielded "1717" / "6h6h" / "1212". If a count-up is ever
+  rebuilt, put the accessible value in an `aria-label` on the wrapper rather
+  than duplicating the text node.
