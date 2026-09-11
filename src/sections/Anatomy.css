@@ -1,0 +1,67 @@
+/* A white studio band. NOT the paper ground, and NOT blended — see the plan's
+   rule 2. The frames' own backdrop is exactly 255,255,255, so matching the
+   section to white makes the letterbox seamless with no blend mode, and
+   therefore nothing for ScrollTrigger's pin transform to isolate. */
+.anatomy {
+  background: #fff;
+  position: relative;
+}
+
+.anatomy__stage {
+  height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.anatomy__canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.anatomy__copy {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(2rem, 8vh, 6rem);
+  width: min(26rem, calc(100% - var(--gutter) * 2));
+}
+
+.anatomy__claim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.anatomy__claim h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.anatomy__claim p { color: var(--ink-soft); max-width: 32ch; }
+
+.anatomy__label {
+  position: absolute;
+  top: clamp(1.5rem, 5vh, 3rem);
+  left: var(--gutter);
+  color: var(--ink-soft);
+}
+
+/* Fallback: three key frames, no canvas, no 192-file download. */
+.anatomy__static {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+  padding: calc(var(--gutter) * 2) var(--gutter);
+}
+.anatomy__static img { width: 100%; }
+.anatomy__static figcaption { margin-top: 1rem; color: var(--ink-soft); }
+
+@media (max-width: 767px) {
+  .anatomy__static { grid-template-columns: 1fr; }
+}
