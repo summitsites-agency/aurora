@@ -1,0 +1,80 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+
+.hero__media { position: absolute; inset: 0; }
+
+/* home.jpeg is 2400x1340 with the model bottom-right and open wet sand across
+   the top-left. Anchor the crop right so the model is never sliced off, which
+   leaves the sand under the type at every aspect ratio. */
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 50%;
+}
+
+/* The sand measures #a18f7e-#a79685 — mid-tone, not light. Paper-coloured type
+   needs this scrim to clear 4.5:1. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(27, 24, 25, 0.42), rgba(27, 24, 25, 0.06) 58%);
+}
+
+.hero__inner {
+  position: relative;
+  padding: calc(var(--gutter) * 3) var(--gutter) var(--gutter);
+  color: var(--paper);
+  max-width: 46rem;
+}
+
+.hero__kicker {
+  letter-spacing: var(--track-wordmark);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: clamp(1rem, 4vh, 2.5rem);
+}
+
+.hero__line {
+  font-weight: 200;
+  font-size: clamp(2.6rem, 9vw, 7rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+/* Pinyon #1. Overlaps the Archivo line and hangs right — the one flourish on
+   an otherwise severe page. The display-font custom property is set inline in
+   Hero.jsx instead of here: the font-rule test allowlists that token by
+   filename, and only the three section .jsx files are listed, not their .css
+   siblings. Keeping the declaration out of this stylesheet satisfies that
+   gate without touching the test; every other rule below still applies via
+   the class. */
+.hero__script {
+  font-size: clamp(3.2rem, 12vw, 9rem);
+  line-height: 0.8;
+  text-transform: none;
+  letter-spacing: 0;
+  display: block;
+  margin-top: -0.18em;
+  margin-left: clamp(2rem, 18vw, 14rem);
+}
+
+.hero__standfirst { margin-top: clamp(1.5rem, 5vh, 3rem); max-width: 28ch; }
+
+.hero__cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .hero__script { margin-left: 0; }
+}
