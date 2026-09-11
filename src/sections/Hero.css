@@ -7,6 +7,15 @@
   align-items: flex-start;
 }
 
+/* Desktop drops the type onto the vertical centre line. Centring rather than a
+   bigger top padding, because a fixed offset that looks right at 900px tall is
+   wrong on a 1200px monitor and wrong again on a 13" laptop — this holds at
+   every height. Mobile stays top-aligned: the block is tall relative to a phone
+   screen, and centring it there pushes the CTA toward the fold. */
+@media (min-width: 641px) {
+  .hero { align-items: center; }
+}
+
 .hero__media { position: absolute; inset: 0; }
 
 /* home.jpeg is 2400x1340 with the model bottom-right and open wet sand across
@@ -27,15 +36,12 @@
   background: linear-gradient(105deg, rgba(27, 24, 25, 0.42), rgba(27, 24, 25, 0.06) 58%);
 }
 
-/* Top padding clears the fixed nav and no more. It was `--gutter * 3` to sit
-   under the AURORA kicker; the kicker is gone, so the headline moves up into
-   the space it was holding.
-
-   The `max()` floor is not decoration. `--gutter` bottoms out at 1.25rem on a
+/* The `max()` floor is not decoration. `--gutter` bottoms out at 1.25rem on a
    phone, so a plain multiple of it gives ~27px of padding — and the nav is
    ~61px tall and fixed, so the headline rendered straight through the AURORA
-   wordmark. The floor clears the nav at every width; above ~1100px the gutter
-   term wins and desktop is unchanged. */
+   wordmark. The floor clears the nav at every width. On desktop the block is
+   centred, so this padding only guards the short-viewport case where the
+   content is taller than the space and centring overflows upward. */
 .hero__inner {
   position: relative;
   padding: max(4.75rem, calc(var(--gutter) * 1.35)) var(--gutter) var(--gutter);
@@ -67,8 +73,6 @@
   margin-left: clamp(2rem, 18vw, 14rem);
 }
 
-/* Mobile only — see the note in Hero.jsx. */
-.hero__standfirst { display: none; margin-top: 2rem; max-width: 28ch; }
 
 .hero__cta {
   display: inline-block;
@@ -79,5 +83,7 @@
 
 @media (max-width: 640px) {
   .hero__script { margin-left: 0; }
-  .hero__standfirst { display: block; }
+  /* Sits lower than the nav clearance alone would put it. Top-aligned rather
+     than centred — see the note on .hero — so the offset is authored here. */
+  .hero__inner { padding-top: 9rem; }
 }

@@ -4,10 +4,10 @@ export const home = {
   hero: {
     line1: 'The Sun Kissed',
     script: 'Collection',          // the ONLY Pinyon on the hero
-    /** Mobile only. Cut from the desktop hero, kept below the CTA on phones
-     *  where the headline alone leaves the screen empty. */
-    standfirst: 'One silhouette. Seven shades. Cut and sewn by hand.',
     cta: 'View all',
+    /** No standfirst. It was cut from desktop, then from mobile too — the hero
+     *  is the headline, the script and the CTA. The line still runs in the
+     *  marquee rails and the meta description. */
   },
 
   collection: {

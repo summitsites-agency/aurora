@@ -64,11 +64,6 @@ export default function Hero() {
         <Magnetic>
           <Link to="/shop" className="hero__cta u-label" data-hero-in>{home.hero.cta}</Link>
         </Magnetic>
-        {/* Below the CTA in the DOM, and hidden above 640px. The standfirst was
-            cut from the desktop hero but kept on mobile, where the headline
-            alone leaves the screen empty — so it reads after the CTA rather
-            than between the headline and it. */}
-        <p className="hero__standfirst" data-hero-in>{home.hero.standfirst}</p>
       </div>
 
       <MarqueeRail side="left" />
