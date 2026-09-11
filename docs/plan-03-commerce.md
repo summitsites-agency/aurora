@@ -73,7 +73,7 @@ tests/
 
 **Files:** Create `src/data/productDetail.js`, Test: `tests/productDetail.test.js`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```js
 import { describe, it, expect } from 'vitest';
@@ -103,12 +103,12 @@ describe('product detail copy', () => {
 });
 ```
 
-- [ ] **Step 2: Run it, confirm it fails**
+- [x] **Step 2: Run it, confirm it fails**
 
 Run: `cd "not uploaded/aurora" && npx vitest run tests/productDetail.test.js`
 Expected: FAIL — cannot resolve `../src/data/productDetail.js`.
 
-- [ ] **Step 3: Write `src/data/productDetail.js`**
+- [x] **Step 3: Write `src/data/productDetail.js`**
 
 ```js
 /** Shared PDP copy. Identical for all eight colourways — same garment, same
@@ -161,11 +161,11 @@ export const detail = {
 };
 ```
 
-- [ ] **Step 4: Run the test, confirm it passes**
+- [x] **Step 4: Run the test, confirm it passes**
 
 Expected: PASS, 4 tests. Suite total 37.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -181,7 +181,7 @@ Money maths gets a test before it gets a UI.
 
 **Files:** Create `src/lib/totals.js`, Test: `tests/checkout.test.js`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```js
 import { describe, it, expect } from 'vitest';
@@ -228,12 +228,12 @@ describe('orderTotals', () => {
 });
 ```
 
-- [ ] **Step 2: Run it, confirm it fails**
+- [x] **Step 2: Run it, confirm it fails**
 
 Run: `cd "not uploaded/aurora" && npx vitest run tests/checkout.test.js`
 Expected: FAIL — cannot resolve `../src/lib/totals.js`.
 
-- [ ] **Step 3: Write `src/lib/totals.js`**
+- [x] **Step 3: Write `src/lib/totals.js`**
 
 ```js
 import { cartTotalCents } from '../cart/cartReducer.js';
@@ -253,11 +253,11 @@ export function orderTotals(cart) {
 }
 ```
 
-- [ ] **Step 4: Run the test, confirm it passes**
+- [x] **Step 4: Run the test, confirm it passes**
 
 Expected: PASS, 7 tests. Suite total 44.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -271,7 +271,7 @@ git commit -m "feat(aurora): add order totals with free-shipping threshold"
 
 **Files:** Create `src/components/SizeSelector.jsx` + `.css`, `src/components/Accordion.jsx` + `.css`
 
-- [ ] **Step 1: Write `SizeSelector.css`**
+- [x] **Step 1: Write `SizeSelector.css`**
 
 ```css
 .sizes { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -293,7 +293,7 @@ git commit -m "feat(aurora): add order totals with free-shipping threshold"
 .sizes__btn:hover { border-color: var(--ink); }
 ```
 
-- [ ] **Step 2: Write `SizeSelector.jsx`**
+- [x] **Step 2: Write `SizeSelector.jsx`**
 
 Real `<button>`s with `aria-pressed`, so keyboard and screen-reader users get
 the control for free rather than a div with a click handler.
@@ -322,7 +322,7 @@ export default function SizeSelector({ value, onChange, accent }) {
 }
 ```
 
-- [ ] **Step 3: Write `Accordion.css`**
+- [x] **Step 3: Write `Accordion.css`**
 
 Animates `grid-template-rows` rather than `max-height`, so the panel opens to
 its real height with no magic number to get wrong.
@@ -358,7 +358,7 @@ its real height with no magic number to get wrong.
 }
 ```
 
-- [ ] **Step 4: Write `Accordion.jsx`**
+- [x] **Step 4: Write `Accordion.jsx`**
 
 ```jsx
 import { useId, useState } from 'react';
@@ -390,7 +390,7 @@ export default function Accordion({ title, children, defaultOpen = false }) {
 }
 ```
 
-- [ ] **Step 5: Build and commit**
+- [x] **Step 5: Build and commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -405,7 +405,7 @@ git commit -m "feat(aurora): add size selector and accordion"
 
 **Files:** Replace `src/routes/Shop.jsx`, create `src/routes/Shop.css`
 
-- [ ] **Step 1: Write `Shop.css`**
+- [x] **Step 1: Write `Shop.css`**
 
 ```css
 .shop { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 3); }
@@ -453,7 +453,7 @@ git commit -m "feat(aurora): add size selector and accordion"
 }
 ```
 
-- [ ] **Step 2: Write `Shop.jsx`**
+- [x] **Step 2: Write `Shop.jsx`**
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -517,7 +517,7 @@ export default function Shop() {
 }
 ```
 
-- [ ] **Step 3: Build, test, commit**
+- [x] **Step 3: Build, test, commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -532,7 +532,7 @@ git commit -m "feat(aurora): build the shop page"
 
 **Files:** Create `src/components/ColourRail.jsx` + `.css`
 
-- [ ] **Step 1: Write `ColourRail.css`**
+- [x] **Step 1: Write `ColourRail.css`**
 
 ```css
 .rail { padding: calc(var(--gutter) * 2) 0 0; border-top: 1px solid var(--line); }
@@ -548,7 +548,7 @@ git commit -m "feat(aurora): build the shop page"
 .rail__name { margin-top: 0.5rem; }
 ```
 
-- [ ] **Step 2: Write `ColourRail.jsx`**
+- [x] **Step 2: Write `ColourRail.jsx`**
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -586,7 +586,7 @@ export default function ColourRail({ currentSlug }) {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -600,7 +600,7 @@ git commit -m "feat(aurora): add the other-seven colour rail"
 
 **Files:** Replace `src/routes/Product.jsx`, create `src/routes/Product.css`
 
-- [ ] **Step 1: Write `Product.css`**
+- [x] **Step 1: Write `Product.css`**
 
 ```css
 .pdp { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 3); }
@@ -645,7 +645,7 @@ git commit -m "feat(aurora): add the other-seven colour rail"
 }
 ```
 
-- [ ] **Step 2: Write `Product.jsx`**
+- [x] **Step 2: Write `Product.jsx`**
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -747,7 +747,7 @@ export default function Product() {
 }
 ```
 
-- [ ] **Step 3: Build, test, commit**
+- [x] **Step 3: Build, test, commit**
 
 ```bash
 cd "not uploaded/aurora"
@@ -765,7 +765,7 @@ so Stripe drops in without touching anything else.
 
 **Files:** Replace `src/routes/Checkout.jsx`, create `src/routes/Checkout.css`, create `src/components/QuantityStepper.jsx`
 
-- [ ] **Step 1: Write `QuantityStepper.jsx`**
+- [x] **Step 1: Write `QuantityStepper.jsx`**
 
 ```jsx
 export default function QuantityStepper({ qty, onChange, label }) {
@@ -779,7 +779,7 @@ export default function QuantityStepper({ qty, onChange, label }) {
 }
 ```
 
-- [ ] **Step 2: Write `Checkout.css`**
+- [x] **Step 2: Write `Checkout.css`**
 
 ```css
 .co { padding: calc(var(--gutter) * 4) var(--gutter) calc(var(--gutter) * 3); }
@@ -804,7 +804,7 @@ export default function QuantityStepper({ qty, onChange, label }) {
 .co__empty { margin-top: var(--gutter); }
 ```
 
-- [ ] **Step 3: Write `Checkout.jsx`**
+- [x] **Step 3: Write `Checkout.jsx`**
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -904,7 +904,7 @@ export default function Checkout() {
 }
 ```
 
-- [ ] **Step 4: Build, test, commit**
+- [x] **Step 4: Build, test, commit**
 
 ```bash
 cd "not uploaded/aurora"

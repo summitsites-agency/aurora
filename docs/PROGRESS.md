@@ -16,10 +16,10 @@
 | Branch | `aurora` |
 | Project root | `` |
 | Spec | `docs/design-spec.md` |
-| Plan sequence | 2 of 4 — Homepage |
-| Active plan | `docs/plan-02-homepage.md` |
-| Current task | **—** |
-| Status | `PLAN_COMPLETE` |
+| Plan sequence | 3 of 4 — Commerce |
+| Active plan | `docs/plan-03-commerce.md` |
+| Current task | **8** |
+| Status | `TASK_COMPLETE` |
 | Last updated | 2026-09-11 |
 
 **Status values:** `NOT_STARTED` · `IMPLEMENTING` · `SPEC_REVIEW` · `QUALITY_REVIEW` · `TASK_COMPLETE` · `PLAN_COMPLETE` · `BLOCKED`
@@ -87,6 +87,21 @@ Decide between two options — **never** assume the partial work is correct:
 
 - **Verify and keep.** Only if the diff is small and obviously complete. Run
   `npm test` and `npm run build` first. If either fails, discard instead.
+
+---
+
+## Task ledger — Plan 3: Commerce
+
+| # | Task | Impl | Spec | Qual | Commit |
+|---|------|------|------|------|--------|
+| 1 | Product detail copy | OK | — | — | `89e54fc` |
+| 2 | Checkout totals | OK | — | — | `b1852cd` |
+| 3 | SizeSelector and Accordion | OK | — | — | `6a47b9b` |
+| 4 | The shop page | OK | — | — | `640623b` |
+| 5 | The colour rail | OK | — | — | `9e92868` |
+| 6 | The product page | OK | — | — | `6ed3090` |
+| 7 | Checkout | OK | — | — | `9b4c0be` |
+| 8 | Verify in a real browser | — | — | — | — |
 
 ---
 
@@ -628,3 +643,36 @@ have to rediscover.
   or copying the text yielded "1717" / "6h6h" / "1212". If a count-up is ever
   rebuilt, put the accessible value in an `aria-label` on the wrapper rather
   than duplicating the text node.
+- **2026-09-11 — Plan 3 Tasks 1-7 complete, no deviations.** Both TDD tasks
+  followed the plan's protocol exactly: `tests/productDetail.test.js` and
+  `tests/checkout.test.js` were each written first and confirmed to FAIL with
+  the expected "Failed to resolve import" error (unresolved `../src/data/
+  productDetail.js` and `../src/lib/totals.js` respectively) before their
+  implementations existed, then `src/data/productDetail.js` and
+  `src/lib/totals.js` were written verbatim from the plan and the tests
+  re-run to confirm a pass. Counts matched the plan's predictions exactly at
+  every checkpoint: 4/4 after Task 1 (suite 37), 7/7 after Task 2 (suite 44).
+  Tasks 3-7 (`SizeSelector`, `Accordion`, `Shop`, `ColourRail`, `Product`,
+  `Checkout`, `QuantityStepper`) were written verbatim from the plan with no
+  test files (as specified) and verified with `npm run build` + `npm test`
+  after each; the module count climbed 95 -> 96 (Shop wired in) -> 105
+  (Product wires in SizeSelector/Accordion/ColourRail) -> 108 (Checkout wires
+  in QuantityStepper) as each route actually reached the real entry point,
+  confirming every import resolves rather than just being syntactically
+  valid. Suite held at 44/44 through all seven tasks; final build succeeded
+  at 108 modules. Confirmed via `git diff --stat` against `package.json` and
+  `package-lock.json` that no dependency was added — the checkout's pay
+  button stays disabled with the Stripe seam only as a comment, exactly as
+  required. `grep -rn "font-display" src/routes/ src/components/` is empty:
+  none of the four rules this plan warned about were violated —
+  `groundSoft` (never `hex`) sits behind every knockout in `Shop.jsx`,
+  `ColourRail.jsx`, `Product.jsx` and `Checkout.jsx`; no `transform` was put
+  on any ancestor of a blended `<img>` (all `.shop__img`/`.pdp__img`/
+  `.rail__img` transforms target the image itself, and none of these images
+  are wrapped in `Parallax`); every knockout plate class (`.shop__plate`,
+  `.rail__plate`, `.pdp__plate`, and the inline-styled span in
+  `Checkout.jsx`) is `border-radius: 0`; and Pinyon Script's `--font-display`
+  token appears nowhere in `src/routes/` or `src/components/`. Task 8
+  (browser verification) is explicitly out of scope for this batch per the
+  controller's instructions and is left for whoever picks up the ledger
+  next.
