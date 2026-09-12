@@ -19,12 +19,23 @@
 .shop__note-term { color: var(--ink); }
 .shop__note-detail { margin: 0.5rem 0 0; color: var(--ink-soft); max-width: 34ch; }
 
+/* Flex rather than grid, for the same reason as the homepage rail: seven cards
+   four-up orphans the fourth cell of the second row, and that hole sits in the
+   bottom-right corner of the page's main block where it reads as a broken
+   image. It is worse here than on the homepage because these cards carry
+   descriptions, so the missing one leaves a taller void. Wrapping centres the
+   short row instead. A full row has no slack, so nothing else moves.
+   The 0.02px guards against subpixel rounding pushing four bases plus three
+   gaps past 100% and wrapping a card early. */
 .shop__grid {
   list-style: none; padding: 0; margin: 0;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter);
+  display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gutter);
 }
-@media (max-width: 1024px) { .shop__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px)  { .shop__grid { grid-template-columns: 1fr; } }
+.shop__card { flex: 0 1 calc((100% - var(--gutter) * 3) / 4 - 0.02px); }
+@media (max-width: 1024px) {
+  .shop__card { flex-basis: calc((100% - var(--gutter)) / 2 - 0.02px); }
+}
+@media (max-width: 560px) { .shop__card { flex-basis: 100%; } }
 
 .shop__card { position: relative; }
 

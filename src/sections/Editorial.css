@@ -18,7 +18,25 @@
 }
 
 .editorial img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
-.editorial__wash { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(27,24,25,.38), transparent 55%); }
+/* The quote sits between roughly 9% and 25% up from the section's bottom edge,
+   and that is the brightest part of the frame — open surf and wet sand. The
+   old single-stop `.38 → transparent 55%` only reached ~.29 alpha where the
+   type actually lands, which measured 1.8:1 for the script and 1.9:1 for the
+   11.5px caption. Large type needs 3:1 and that caption needs 4.5:1.
+   Four stops instead: heavy through the type band, then off fast so the top
+   two thirds of the photograph stay untouched. Same job the hero's 105deg
+   scrim does — that one was authored correctly and this one was not. */
+.editorial__wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(27, 24, 25, 0.66) 0%,
+    rgba(27, 24, 25, 0.58) 16%,
+    rgba(27, 24, 25, 0.24) 40%,
+    transparent 66%
+  );
+}
 .editorial__quote {
   position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(2rem, 8vh, 5rem);
   color: var(--paper); text-align: center;

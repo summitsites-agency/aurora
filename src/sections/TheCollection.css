@@ -3,15 +3,29 @@
 .coll__title { font-size: clamp(1.8rem, 4.5vw, 3.4rem); font-weight: 200; line-height: 1.05; }
 .coll__body { margin-top: 1rem; color: var(--ink-soft); max-width: 42ch; }
 
+/* Flex, not grid, and the reason is the range size. Seven cards in a four-up
+   grid leaves the fourth cell of the second row empty, and a hole that size in
+   the bottom-right corner reads as an image that failed to load rather than as
+   a deliberate margin. The same thing happens two-up: three full rows and a
+   lone orphan. Flex wrapping centres whatever the last row holds, so the block
+   stays symmetrical at every count. A full row has no free space left, so
+   `justify-content` only ever moves the short one.
+   The 0.02px is a wrapping guard: four bases plus three gaps is exactly 100%,
+   and at some widths subpixel rounding tips that over and drops a card to the
+   next row. */
 .coll__grid {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gutter);
 }
-@media (max-width: 1024px) { .coll__grid { grid-template-columns: repeat(2, 1fr); } }
+.coll__card { flex: 0 1 calc((100% - var(--gutter) * 3) / 4 - 0.02px); }
+@media (max-width: 1024px) {
+  .coll__card { flex-basis: calc((100% - var(--gutter)) / 2 - 0.02px); }
+}
 
 /* One card on phones. Seven stacked full-width plates was most of the
    homepage's scroll depth for a section whose job is to say "there are
@@ -19,7 +33,7 @@
    the markup stays one list — and they carry loading="lazy", so a hidden card
    never fetches its image. `.coll__more` gives the survivors a way out. */
 @media (max-width: 560px) {
-  .coll__grid { grid-template-columns: 1fr; }
+  .coll__card { flex-basis: 100%; }
   .coll__card:nth-child(n + 2) { display: none; }
 }
 
@@ -56,7 +70,12 @@
 .coll__card:hover .coll__img,
 .coll__card:focus-within .coll__img { transform: translateY(-6px) scale(1.02); }
 
-.coll__meta { display: flex; justify-content: space-between; margin-top: 0.9rem; }
+/* `align-items: baseline` is load-bearing. The name is 16px and the price is
+   the 11.5px label, and under the default `stretch` both boxes get the same
+   height while each line of type sits by its own half-leading — so the price
+   rode about 3px high on all seven cards. `.shop__meta` always had this; this
+   one did not. */
+.coll__meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.9rem; }
 .coll__swatch {
   width: 0.9rem; height: 0.9rem; border-radius: 50%;
   background: linear-gradient(140deg, var(--sw-light), var(--sw));
