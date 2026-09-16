@@ -27,6 +27,23 @@ export default function Footer() {
         <Link to="/craft">The Craft</Link>
         <Link to="/anatomy">The Anatomy</Link>
       </nav>
+
+      {/* Studio credit. Its own full-width row under the hairline — the row
+          above is a three-item space-between that a fourth item would break. */}
+      <p className="ft__credit u-label">
+        <a
+          className="ft__maker"
+          href="https://mossimo-studios.vercel.app"
+          target="_blank"
+          rel="noopener"
+          aria-label="mossimo Studios"
+        >
+          {/* Reversed one-colour mark: the sand ground is too dark to carry the
+              wordmark's black ink. */}
+          <img src="/mossimo-studios-reverse.png" alt="" width="900" height="304" />
+        </a>
+        <span>This website is the property of, and was made by, mossimo Studios · © 2026.</span>
+      </p>
     </footer>
   );
 }
